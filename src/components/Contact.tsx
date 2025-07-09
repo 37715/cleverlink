@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,139 +24,140 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-[#2A2438] to-[#1F1B2E]">
+    <section className="py-20 px-6 bg-zinc-950">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Transform Your Business?
+        <ScrollReveal className="text-center mb-16">
+          <h2 className="font-heading text-3xl md:text-4xl font-ultra-light mb-6 text-white">
+            contact
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Get in touch with our AI experts to discuss your project
+          <div className="w-12 h-px bg-white mx-auto mb-8"></div>
+          <p className="text-xl text-zinc-400 max-w-xl mx-auto font-ultra-light">
+            <span className="font-ultra-light">get in touch with our ai experts to discuss your project</span>
           </p>
-        </div>
+        </ScrollReveal>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-[#1F1B2E] rounded-2xl p-8 border border-[#8A3FFC]/20">
-            <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
+          <ScrollReveal delay={0.2} className="bg-zinc-900 border border-zinc-800 p-8 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
+            <h3 className="font-accent text-xl font-light mb-6 text-white">send us a message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Full Name
+                  <label className="block text-sm font-ultra-light text-zinc-400 mb-2">
+                    full name
                   </label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#2A2438] border border-[#8A3FFC]/20 rounded-xl focus:outline-none focus:border-[#8A3FFC] focus:ring-2 focus:ring-[#8A3FFC]/20 focus:shadow-lg focus:shadow-[#8A3FFC]/10 transition-all duration-300"
-                    placeholder="John Doe"
+                    className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 focus:outline-none focus:border-white transition-all duration-300 font-ultra-light text-white placeholder-zinc-500"
+                    placeholder="john doe"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address
+                  <label className="block text-sm font-ultra-light text-zinc-400 mb-2">
+                    email address
                   </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#2A2438] border border-[#8A3FFC]/20 rounded-xl focus:outline-none focus:border-[#8A3FFC] focus:ring-2 focus:ring-[#8A3FFC]/20 focus:shadow-lg focus:shadow-[#8A3FFC]/10 transition-all duration-300"
+                    className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 focus:outline-none focus:border-white transition-all duration-300 font-ultra-light text-white placeholder-zinc-500"
                     placeholder="john@example.com"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Company Name
+                <label className="block text-sm font-ultra-light text-zinc-400 mb-2">
+                  company name
                 </label>
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[#2A2438] border border-[#8A3FFC]/20 rounded-xl focus:outline-none focus:border-[#8A3FFC] focus:ring-2 focus:ring-[#8A3FFC]/20 focus:shadow-lg focus:shadow-[#8A3FFC]/10 transition-all duration-300"
-                  placeholder="Your Company"
+                  className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 focus:outline-none focus:border-white transition-all duration-300 font-ultra-light text-white placeholder-zinc-500"
+                  placeholder="your company"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
+                <label className="block text-sm font-ultra-light text-zinc-400 mb-2">
+                  message
                 </label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={5}
-                  className="w-full px-4 py-3 bg-[#2A2438] border border-[#8A3FFC]/20 rounded-xl focus:outline-none focus:border-[#8A3FFC] focus:ring-2 focus:ring-[#8A3FFC]/20 focus:shadow-lg focus:shadow-[#8A3FFC]/10 transition-all duration-300 resize-none"
-                  placeholder="Tell us about your project..."
+                  className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 focus:outline-none focus:border-white transition-all duration-300 resize-none font-ultra-light text-white placeholder-zinc-500"
+                  placeholder="tell us about your project..."
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-[#8A3FFC] to-[#A855F7] rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#8A3FFC]/30 flex items-center justify-center gap-2"
+                className="w-full py-3 bg-white text-black border border-white font-ultra-light transition-all duration-300 hover:bg-transparent hover:text-white hover:scale-105 flex items-center justify-center gap-2"
               >
-                <Send className="w-5 h-5" />
-                Send Message
+                <Send className="w-4 h-4" />
+                send message
               </button>
             </form>
-          </div>
+          </ScrollReveal>
           
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="bg-[#1F1B2E] rounded-2xl p-8 border border-[#8A3FFC]/20">
-              <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+          <ScrollReveal delay={0.4} className="space-y-8">
+            <div className="bg-zinc-900 border border-zinc-800 p-8 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
+              <h3 className="font-accent text-xl font-light mb-6 text-white">get in touch</h3>
               
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#8A3FFC] to-[#A855F7] rounded-xl flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 bg-white flex items-center justify-center transition-transform duration-300 hover:scale-110">
+                    <Mail className="w-4 h-4 text-black" strokeWidth={1} />
                   </div>
                   <div>
-                    <p className="font-semibold">Email</p>
-                    <p className="text-gray-400">contact@aiservices.com</p>
+                    <p className="font-light text-white">email</p>
+                    <p className="text-zinc-400 text-sm font-ultra-light">hello@cleverlink.ai</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#8A3FFC] to-[#A855F7] rounded-xl flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 bg-white flex items-center justify-center transition-transform duration-300 hover:scale-110">
+                    <Phone className="w-4 h-4 text-black" strokeWidth={1} />
                   </div>
                   <div>
-                    <p className="font-semibold">Phone</p>
-                    <p className="text-gray-400">+1 (555) 123-4567</p>
+                    <p className="font-light text-white">phone</p>
+                    <p className="text-zinc-400 text-sm font-ultra-light">+1 (555) 123-4567</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#8A3FFC] to-[#A855F7] rounded-xl flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 bg-white flex items-center justify-center transition-transform duration-300 hover:scale-110">
+                    <MapPin className="w-4 h-4 text-black" strokeWidth={1} />
                   </div>
                   <div>
-                    <p className="font-semibold">Office</p>
-                    <p className="text-gray-400">San Francisco, CA</p>
+                    <p className="font-light text-white">office</p>
+                    <p className="text-zinc-400 text-sm font-ultra-light">san francisco, ca</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-[#1F1B2E] rounded-2xl p-8 border border-[#8A3FFC]/20">
-              <h3 className="text-xl font-bold mb-4">Why Choose Us?</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• 24/7 AI-powered support</li>
-                <li>• Custom solutions for your needs</li>
-                <li>• Proven track record of success</li>
-                <li>• Cutting-edge technology</li>
+            <div className="bg-zinc-900 border border-zinc-800 p-8 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
+              <h3 className="font-accent text-lg font-light mb-4 text-white">why choose us?</h3>
+              <ul className="space-y-2 text-zinc-400">
+                <li className="text-sm font-ultra-light">• 24/7 ai-powered support</li>
+                <li className="text-sm font-ultra-light">• custom solutions for your needs</li>
+                <li className="text-sm font-ultra-light">• proven track record of success</li>
+                <li className="text-sm font-ultra-light">• cutting-edge technology</li>
               </ul>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

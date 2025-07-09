@@ -1,67 +1,90 @@
 import React from 'react';
 import { Globe, Workflow, Phone, Brain } from 'lucide-react';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
+import { SplineSceneBasic } from '@/components/ui/spline-demo';
+import { TextRotate } from '@/components/ui/text-rotate';
 
 const Features = () => {
   const features = [
     {
       icon: Globe,
-      title: 'AI-Powered Web Design',
-      description: 'Create stunning, responsive websites with our AI-driven design system that adapts to your brand and user needs.',
-      color: 'from-blue-500 to-purple-600'
+      title: 'ai-powered web design',
+      description: 'create stunning, responsive websites with our ai-driven design system that adapts to your brand and user needs.',
     },
     {
       icon: Workflow,
-      title: 'Automated Workflows',
-      description: 'Streamline your business processes with intelligent automation that learns and adapts to your operations.',
-      color: 'from-purple-500 to-pink-600'
+      title: 'automated workflows',
+      description: 'streamline your business processes with intelligent automation that learns and adapts to your operations.',
     },
     {
       icon: Phone,
-      title: 'AI Receptionists',
-      description: 'Never miss a call with our intelligent virtual receptionists that handle inquiries 24/7 with human-like conversation.',
-      color: 'from-pink-500 to-red-600'
+      title: 'ai receptionists',
+      description: 'never miss a call with our intelligent virtual receptionists that handle inquiries 24/7 with human-like conversation.',
     },
     {
       icon: Brain,
-      title: 'Custom AI Solutions',
-      description: 'Tailored AI implementations designed specifically for your unique business challenges and opportunities.',
-      color: 'from-green-500 to-teal-600'
+      title: 'custom ai solutions',
+      description: 'tailored ai implementations designed specifically for your unique business challenges and opportunities.',
     }
   ];
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-[#1F1B2E] to-[#2A2438]">
+    <section className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Powerful AI Services
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Discover how our cutting-edge AI solutions can transform your business operations
+        <ScrollReveal className="text-center mb-16">
+          <div className="h-16 md:h-20 flex items-center justify-center mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl font-light text-black">
+              <TextRotate
+                texts={[
+                  "capabilities",
+                  "expertise", 
+                  "solutions",
+                  "innovation",
+                  "services"
+                ]}
+                rotationInterval={2500}
+                staggerDuration={0.02}
+                staggerFrom="first"
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: "-100%", opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                splitLevelClassName="overflow-visible"
+                elementLevelClassName="font-heading font-light"
+                mainClassName="h-full flex items-center justify-center"
+              />
+            </h2>
+          </div>
+          <div className="w-12 h-px bg-black mx-auto mb-8"></div>
+          <p className="text-xl text-gray-600 max-w-xl mx-auto font-ultra-light">
+            <span className="font-ultra-light">discover how our cutting-edge ai solutions can transform your business operations</span>
           </p>
-        </div>
+        </ScrollReveal>
         
+        {/* 3D Showcase */}
+        <ScrollReveal delay={0.3} className="max-w-5xl mx-auto mb-20">
+          <SplineSceneBasic />
+        </ScrollReveal>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div
+            <ScrollReveal 
               key={index}
-              className="group relative bg-[#1F1B2E] rounded-2xl p-8 border border-[#8A3FFC]/20 hover:border-[#8A3FFC]/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#8A3FFC]/20"
+              delay={index * 0.1}
+              className="group bg-white border border-gray-100 p-8 transition-all duration-500 hover:border-gray-200 hover:translate-y-[-4px] hover:shadow-lg hover:scale-105 cursor-pointer"
             >
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className="w-8 h-8 text-white" />
+              <div className="w-12 h-12 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <feature.icon className="w-6 h-6 text-black" strokeWidth={1} />
               </div>
               
-              <h3 className="text-xl font-bold mb-4 group-hover:text-[#8A3FFC] transition-colors duration-300">
+              <h3 className="font-accent text-xl font-light mb-4 text-black group-hover:text-gray-700 transition-colors duration-300">
                 {feature.title}
               </h3>
               
-              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-gray-600 leading-relaxed font-ultra-light text-base">
                 {feature.description}
               </p>
-              
-              {/* Hover Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#8A3FFC]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

@@ -9,14 +9,19 @@ import { SplashCursor } from '@/components/ui/splash-cursor';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#1F1B2E] text-white">
+    <div className="min-h-screen bg-white text-black relative">
+      {/* Splash cursor positioned behind all content */}
       <SplashCursor />
-      <Hero />
-      <Dashboard />
-      <Features />
-      <Pricing />
-      <Contact />
-      <Footer />
+      
+      {/* Main content with higher z-index */}
+      <div className="relative z-10">
+        <Hero />
+        <Dashboard />
+        <Features />
+        <Pricing />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 }

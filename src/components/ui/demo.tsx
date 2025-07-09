@@ -1,7 +1,11 @@
-import { SplashCursor } from "@/components/ui/splash-cursor"
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
-export function NoiseDemo() {
+function InteractiveHoverButtonDemo() {
   return (
-    <SplashCursor />
-  )
+    <div className="relative justify-center">
+      <InteractiveHoverButton />
+    </div>
+  );
 }
+
+export { InteractiveHoverButtonDemo };
