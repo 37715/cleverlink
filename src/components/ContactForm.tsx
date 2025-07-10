@@ -91,6 +91,33 @@ const ContactForm = () => {
       }
 
       console.log('Form submitted successfully:', data);
+
+      // Send confirmation and notification emails
+      try {
+        const { data: emailData, error: emailError } = await supabase.functions.invoke('send-emails', {
+          body: { 
+            formData: {
+              name: formData.name,
+              email: formData.email,
+              selectedService: services.find(s => s.value === formData.selectedService)?.label || formData.selectedService,
+              companyName: formData.companyName,
+              problems: formData.problems,
+              additionalInfo: formData.additionalInfo
+            }
+          },
+        });
+
+        if (emailError) {
+          console.error('Email sending error:', emailError);
+          // Don't throw error here - form submission was successful, emails are secondary
+        } else {
+          console.log('Emails sent successfully:', emailData);
+        }
+      } catch (emailError) {
+        console.error('Email function error:', emailError);
+        // Don't throw error here - form submission was successful, emails are secondary
+      }
+
       setIsSubmitted(true);
       
     } catch (error) {
