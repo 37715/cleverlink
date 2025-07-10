@@ -24,6 +24,7 @@
   }
   
   html {
+    background-color: #FFFFFF !important;
     scroll-behavior: smooth;
   }
   
@@ -33,8 +34,10 @@
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--bg-light);
+    background-color: var(--bg-light) !important;
     color: var(--text-primary);
+    margin: 0;
+    padding: 0;
   }
 }
 

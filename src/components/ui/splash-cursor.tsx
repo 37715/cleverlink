@@ -3,19 +3,19 @@
 import { useEffect, useRef } from "react";
 
 function SplashCursor({
-  // Adjusted parameters for visible but subtle effect
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 512,
-  CAPTURE_RESOLUTION = 256,
-  DENSITY_DISSIPATION = 0.98,
-  VELOCITY_DISSIPATION = 0.2,
-  PRESSURE = 0.8,
-  PRESSURE_ITERATIONS = 20,
-  CURL = 30,
-  SPLAT_RADIUS = 0.25,
-  SPLAT_FORCE = 6000,
-  SHADING = true,
-  COLOR_UPDATE_SPEED = 10,
+  // Optimized parameters for better performance
+  SIM_RESOLUTION = 64,        // Reduced from 128
+  DYE_RESOLUTION = 256,       // Reduced from 512
+  CAPTURE_RESOLUTION = 128,   // Reduced from 256
+  DENSITY_DISSIPATION = 0.97, // Slightly faster dissipation
+  VELOCITY_DISSIPATION = 0.3, // Increased for stability
+  PRESSURE = 0.6,             // Reduced for less computation
+  PRESSURE_ITERATIONS = 12,   // Reduced from 20
+  CURL = 20,                  // Reduced from 30
+  SPLAT_RADIUS = 0.2,         // Slightly smaller
+  SPLAT_FORCE = 4000,         // Reduced from 6000
+  SHADING = false,            // Disabled for performance
+  COLOR_UPDATE_SPEED = 8,     // Reduced from 10
   BACK_COLOR = { r: 0, g: 0, b: 0 },
   TRANSPARENT = true,
 }) {
@@ -681,19 +681,21 @@ function SplashCursor({
 
     function step(dt) {
       gl.disable(gl.BLEND);
-      curlProgram.bind();
-      gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
-      blit(curl);
+      
+      // Skip expensive curl/vorticity calculations for better performance
+      // curlProgram.bind();
+      // gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+      // gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+      // blit(curl);
 
-      vorticityProgram.bind();
-      gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
-      gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
-      gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
-      gl.uniform1f(vorticityProgram.uniforms.dt, dt);
-      blit(velocity.write);
-      velocity.swap();
+      // vorticityProgram.bind();
+      // gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+      // gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+      // gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+      // gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+      // gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+      // blit(velocity.write);
+      // velocity.swap();
 
       divergenceProgram.bind();
       gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
@@ -889,7 +891,7 @@ function SplashCursor({
   }, [SIM_RESOLUTION, DYE_RESOLUTION, CAPTURE_RESOLUTION, DENSITY_DISSIPATION, VELOCITY_DISSIPATION, PRESSURE, PRESSURE_ITERATIONS, CURL, SPLAT_RADIUS, SPLAT_FORCE, SHADING, COLOR_UPDATE_SPEED, BACK_COLOR, TRANSPARENT]);
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+    <div className="fixed inset-0 z-0 pointer-events-none opacity-20">
       <canvas ref={canvasRef} className="w-full h-full" />
     </div>
   );
