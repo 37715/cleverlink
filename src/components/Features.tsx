@@ -8,23 +8,23 @@ const Features = () => {
   const features = [
     {
       icon: Globe,
-      title: 'AI-Powered Web Design & Development',
-      description: 'Create stunning, responsive websites with our AI-driven design system that adapts to your brand identity and user experience needs. Professional web development services powered by artificial intelligence.',
+      title: 'ai-powered web design & development',
+      description: 'create stunning, responsive websites with our ai-driven design system that adapts to your brand identity and user experience needs. professional web development services powered by artificial intelligence.',
     },
     {
       icon: Workflow,
-      title: 'Business Process Automation',
-      description: 'Streamline your business operations with intelligent workflow automation that learns and adapts to your processes. Reduce manual tasks and increase efficiency with custom automation solutions.',
+      title: 'business process automation',
+      description: 'streamline your business operations with intelligent workflow automation that learns and adapts to your processes. reduce manual tasks and increase efficiency with custom automation solutions.',
     },
     {
       icon: Phone,
-      title: '24/7 AI Virtual Receptionists',
-      description: 'Never miss a call with our intelligent virtual receptionist services that handle customer inquiries 24/7 with human-like conversation. Advanced AI phone automation for better customer service.',
+      title: '24/7 ai virtual receptionists',
+      description: 'never miss a call with our intelligent virtual receptionist services that handle customer inquiries 24/7 with human-like conversation. advanced ai phone automation for better customer service.',
     },
     {
       icon: Brain,
-      title: 'Custom AI Solutions & Consulting',
-      description: 'Tailored artificial intelligence implementations designed specifically for your unique business challenges and growth opportunities. Expert AI consulting services for modern enterprises.',
+      title: 'custom ai solutions & consulting',
+      description: 'tailored artificial intelligence implementations designed specifically for your unique business challenges and growth opportunities. expert ai consulting services for modern enterprises.',
     }
   ];
 
@@ -57,7 +57,7 @@ const Features = () => {
           </div>
           <div className="w-12 h-px bg-black mx-auto mb-6 sm:mb-8"></div>
           <p className="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto font-ultra-light px-4">
-            <span className="font-ultra-light">Discover how our cutting-edge AI consulting and automation solutions can transform your business operations and drive growth</span>
+            <span className="font-ultra-light">discover how our cutting-edge ai consulting and automation solutions can transform your business operations and drive growth</span>
           </p>
         </ScrollReveal>
         
@@ -66,7 +66,7 @@ const Features = () => {
           <SplineSceneBasic />
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {features.map((feature, index) => (
             <ScrollReveal 
               key={index}

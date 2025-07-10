@@ -26,12 +26,13 @@ const ContactForm = () => {
     { value: 'social-media-automation', label: 'Social Media Automation', icon: Target }
   ];
 
-  // Pre-fill email from URL params
+  // Pre-fill email from sessionStorage
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const emailParam = urlParams.get('email');
-    if (emailParam) {
-      setFormData(prev => ({ ...prev, email: emailParam }));
+    const prefillEmail = sessionStorage.getItem('prefillEmail');
+    if (prefillEmail) {
+      setFormData(prev => ({ ...prev, email: prefillEmail }));
+      // Clear the stored email after using it
+      sessionStorage.removeItem('prefillEmail');
     }
   }, []);
 

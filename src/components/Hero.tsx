@@ -44,15 +44,15 @@ const Hero = () => {
         // Don't show error to user, still proceed to form
       }
 
-      // Navigate to form page with email pre-filled
-      const formUrl = `/get-started${email ? `?email=${encodeURIComponent(email)}` : ''}`;
-      window.open(formUrl, '_blank');
+      // Store email in sessionStorage for form pre-fill, then navigate
+      sessionStorage.setItem('prefillEmail', email.trim());
+      window.location.href = '/get-started';
       
     } catch (error) {
       console.error('Email signup error:', error);
       // Still proceed to form even if email signup fails
-      const formUrl = `/get-started${email ? `?email=${encodeURIComponent(email)}` : ''}`;
-      window.open(formUrl, '_blank');
+      sessionStorage.setItem('prefillEmail', email.trim());
+      window.location.href = '/get-started';
     } finally {
       setIsSubmitting(false);
     }

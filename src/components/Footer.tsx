@@ -1,7 +1,27 @@
 import React from 'react';
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const Footer = () => {
+  const handleNavigation = (path: string) => {
+    if (path.startsWith('#')) {
+      // For internal page sections, scroll to element
+      const element = document.querySelector(path);
+      if (element) {
+        const offset = 80; // Account for any fixed headers
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      // For new pages, update URL
+      window.location.href = path;
+    }
+  };
+
   return (
     <footer className="bg-white border-t border-gray-100 py-12 px-6">
       <div className="max-w-7xl mx-auto">
@@ -16,52 +36,46 @@ const Footer = () => {
               transform your operations with our intelligent automation and design services.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-8 h-8 border border-gray-200 flex items-center justify-center hover:border-black transition-colors duration-300">
-                <Twitter className="w-4 h-4 text-gray-600" strokeWidth={1} />
-              </a>
-              <a href="#" className="w-8 h-8 border border-gray-200 flex items-center justify-center hover:border-black transition-colors duration-300">
-                <Linkedin className="w-4 h-4 text-gray-600" strokeWidth={1} />
-              </a>
-              <a href="#" className="w-8 h-8 border border-gray-200 flex items-center justify-center hover:border-black transition-colors duration-300">
-                <Github className="w-4 h-4 text-gray-600" strokeWidth={1} />
-              </a>
-              <a href="#" className="w-8 h-8 border border-gray-200 flex items-center justify-center hover:border-black transition-colors duration-300">
+              <a 
+                href="mailto:cleverlink.ai@outlook.com" 
+                className="w-8 h-8 border border-gray-200 flex items-center justify-center hover:border-black transition-colors duration-300"
+              >
                 <Mail className="w-4 h-4 text-gray-600" strokeWidth={1} />
               </a>
             </div>
           </div>
           
-          {/* Links */}
+          {/* Services Links */}
           <div>
             <h4 className="font-accent font-medium mb-4 text-black text-sm">services</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">web design</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">automation</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">ai receptionists</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">custom ai</a></li>
+              <li><button onClick={() => handleNavigation('#features')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">web design</button></li>
+              <li><button onClick={() => handleNavigation('#features')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">automation</button></li>
+              <li><button onClick={() => handleNavigation('#features')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">ai receptionists</button></li>
+              <li><button onClick={() => handleNavigation('#features')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">custom ai</button></li>
             </ul>
           </div>
           
+          {/* Company Links */}
           <div>
             <h4 className="font-accent font-medium mb-4 text-black text-sm">company</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">about</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">features</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">pricing</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light">contact</a></li>
+              <li><button onClick={() => handleNavigation('/about')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">about</button></li>
+              <li><button onClick={() => handleNavigation('#features')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">features</button></li>
+              <li><button onClick={() => handleNavigation('#contact')} className="text-gray-600 hover:text-black transition-colors duration-300 text-sm font-light text-left">contact</button></li>
             </ul>
           </div>
         </div>
         
         {/* Bottom */}
-        <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between pt-8 border-t border-gray-100">
           <p className="text-gray-600 text-xs font-light">
             © 2025 cleverlink. all rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">privacy policy</a>
-            <a href="#" className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">terms of service</a>
-            <a href="#" className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">cookie policy</a>
+            <button onClick={() => handleNavigation('/privacy-policy')} className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">privacy policy</button>
+            <button onClick={() => handleNavigation('/terms-of-service')} className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">terms of service</button>
+            <button onClick={() => handleNavigation('/cookie-policy')} className="text-gray-600 hover:text-black text-xs transition-colors duration-300 font-light">cookie policy</button>
           </div>
         </div>
       </div>

@@ -5,6 +5,10 @@ import Features from './components/Features';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ContactForm from './components/ContactForm';
+import About from './components/About';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import CookiePolicy from './components/CookiePolicy';
 import { SplashCursor } from '@/components/ui/splash-cursor';
 
 function App() {
@@ -14,6 +18,26 @@ function App() {
   // If on form page, show only the form
   if (currentPath === '/get-started') {
     return <ContactForm />;
+  }
+
+  // If on about page, show about page
+  if (currentPath === '/about') {
+    return <About />;
+  }
+
+  // If on privacy policy page, show privacy policy
+  if (currentPath === '/privacy-policy') {
+    return <PrivacyPolicy />;
+  }
+
+  // If on terms of service page, show terms of service
+  if (currentPath === '/terms-of-service') {
+    return <TermsOfService />;
+  }
+
+  // If on cookie policy page, show cookie policy
+  if (currentPath === '/cookie-policy') {
+    return <CookiePolicy />;
   }
 
   // Default landing page
@@ -28,13 +52,13 @@ function App() {
       {/* Main content with proper semantic structure */}
       <main className="relative z-10">
         <Hero />
-        <section aria-label="AI Services and Solutions">
+        <section aria-label="AI Services and Solutions" id="features">
           <Features />
         </section>
         <section aria-label="Performance Results and Analytics">
           <Dashboard />
         </section>
-        <section aria-label="Contact Information">
+        <section aria-label="Contact Information" id="contact">
           <Contact />
         </section>
         <Footer />
