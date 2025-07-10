@@ -16,8 +16,8 @@ function App() {
       {/* Main content with higher z-index */}
       <div className="relative z-10">
         <Hero />
-        <Dashboard />
         <Features />
+        <Dashboard />
         <Pricing />
         <Contact />
         <Footer />

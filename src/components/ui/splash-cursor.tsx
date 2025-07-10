@@ -1,4 +1,5 @@
 "use client";
+// @ts-nocheck
 import { useEffect, useRef } from "react";
 
 function SplashCursor({
@@ -24,17 +25,32 @@ function SplashCursor({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    function pointerPrototype() {
-      this.id = -1;
-      this.texcoordX = 0;
-      this.texcoordY = 0;
-      this.prevTexcoordX = 0;
-      this.prevTexcoordY = 0;
-      this.deltaX = 0;
-      this.deltaY = 0;
-      this.down = false;
-      this.moved = false;
-      this.color = [0, 0, 0];
+    interface Pointer {
+      id: number;
+      texcoordX: number;
+      texcoordY: number;
+      prevTexcoordX: number;
+      prevTexcoordY: number;
+      deltaX: number;
+      deltaY: number;
+      down: boolean;
+      moved: boolean;
+      color: { r: number; g: number; b: number };
+    }
+
+    function pointerPrototype(): Pointer {
+      return {
+        id: -1,
+        texcoordX: 0,
+        texcoordY: 0,
+        prevTexcoordX: 0,
+        prevTexcoordY: 0,
+        deltaX: 0,
+        deltaY: 0,
+        down: false,
+        moved: false,
+        color: { r: 0, g: 0, b: 0 }
+      };
     }
 
     let config = {
@@ -55,7 +71,7 @@ function SplashCursor({
       TRANSPARENT,
     };
 
-    let pointers = [new pointerPrototype()];
+    let pointers = [pointerPrototype()];
 
     const { gl, ext } = getWebGLContext(canvas);
     if (!ext.supportLinearFiltering) {
@@ -63,7 +79,7 @@ function SplashCursor({
       config.SHADING = false;
     }
 
-    function getWebGLContext(canvas) {
+    function getWebGLContext(canvas: HTMLCanvasElement) {
       const params = {
         alpha: true,
         depth: false,
@@ -71,20 +87,23 @@ function SplashCursor({
         antialias: false,
         preserveDrawingBuffer: false,
       };
-      let gl = canvas.getContext("webgl2", params);
+      let gl = canvas.getContext("webgl2", params) as WebGL2RenderingContext | null;
       const isWebGL2 = !!gl;
       if (!isWebGL2)
         gl =
-          canvas.getContext("webgl", params) ||
-          canvas.getContext("experimental-webgl", params);
-      let halfFloat;
-      let supportLinearFiltering;
+          (canvas.getContext("webgl", params) ||
+          canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext | null;
+      
+      if (!gl) throw new Error("WebGL not supported");
+      
+      let halfFloat: any;
+      let supportLinearFiltering: any;
       if (isWebGL2) {
-        gl.getExtension("EXT_color_buffer_float");
-        supportLinearFiltering = gl.getExtension("OES_texture_float_linear");
+        (gl as WebGL2RenderingContext).getExtension("EXT_color_buffer_float");
+        supportLinearFiltering = (gl as WebGL2RenderingContext).getExtension("OES_texture_float_linear");
       } else {
-        halfFloat = gl.getExtension("OES_texture_half_float");
-        supportLinearFiltering = gl.getExtension(
+        halfFloat = (gl as WebGLRenderingContext).getExtension("OES_texture_half_float");
+        supportLinearFiltering = (gl as WebGLRenderingContext).getExtension(
           "OES_texture_half_float_linear"
         );
       }

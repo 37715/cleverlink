@@ -27,8 +27,6 @@ const Hero = () => {
                   texts={[
                     "ai consulting",
                     "automation",
-                    "machine learning", 
-                    "data analytics",
                     "intelligent systems"
                   ]}
                   rotationInterval={3000}
