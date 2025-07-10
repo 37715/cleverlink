@@ -3,17 +3,19 @@ import { ArrowRight, Play } from 'lucide-react';
 import { ScrollReveal, FadeIn } from '@/components/ui/scroll-reveal';
 import { TextRotate } from '@/components/ui/text-rotate';
 import { LavaLamp } from '@/components/ui/fluid-blob';
+import { supabase, TABLES, EmailSignup } from '@/lib/supabase';
 
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleInitialize = () => {
+  const handleInitialize = async () => {
     if (!email.trim()) {
       setEmailError('email required');
       return;
@@ -25,9 +27,35 @@ const Hero = () => {
     }
 
     setEmailError('');
-    // Navigate to form page with email pre-filled
-    const formUrl = `/get-started${email ? `?email=${encodeURIComponent(email)}` : ''}`;
-    window.open(formUrl, '_blank');
+    setIsSubmitting(true);
+
+    try {
+      // Save email signup to Supabase
+      const emailSignupData: EmailSignup = {
+        email: email.trim()
+      };
+
+      const { error } = await supabase
+        .from(TABLES.EMAIL_SIGNUPS)
+        .insert([emailSignupData]);
+
+      if (error) {
+        console.error('Email signup error:', error);
+        // Don't show error to user, still proceed to form
+      }
+
+      // Navigate to form page with email pre-filled
+      const formUrl = `/get-started${email ? `?email=${encodeURIComponent(email)}` : ''}`;
+      window.open(formUrl, '_blank');
+      
+    } catch (error) {
+      console.error('Email signup error:', error);
+      // Still proceed to form even if email signup fails
+      const formUrl = `/get-started${email ? `?email=${encodeURIComponent(email)}` : ''}`;
+      window.open(formUrl, '_blank');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,11 +129,21 @@ const Hero = () => {
               {/* Initialize Button */}
               <button 
                 onClick={handleInitialize}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-white mix-blend-exclusion font-ultra-light text-sm sm:text-base tracking-wide hover:bg-white transition-colors duration-300 group sm:border-l-0"
+                disabled={isSubmitting}
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-white mix-blend-exclusion font-ultra-light text-sm sm:text-base tracking-wide hover:bg-white transition-colors duration-300 group sm:border-l-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="flex items-center justify-center gap-2 text-white mix-blend-exclusion">
-                  initialize
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      processing...
+                    </>
+                  ) : (
+                    <>
+                      initialize
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
                 </span>
               </button>
             </div>

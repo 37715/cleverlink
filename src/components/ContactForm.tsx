@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Send, User, Mail, Building, Target, FileText, Bot, ArrowLeft, CheckCircle, Home } from 'lucide-react';
 import { ScrollReveal, FadeIn } from '@/components/ui/scroll-reveal';
+import { supabase, TABLES, FormSubmission } from '@/lib/supabase';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const ContactForm = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const services = [
@@ -49,6 +51,10 @@ const ContactForm = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear any previous errors
+    if (submitError) {
+      setSubmitError('');
+    }
   };
 
   const handleServiceSelect = (service: { value: string; label: string; icon: any }) => {
@@ -59,15 +65,39 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      // Prepare data for Supabase
+      const submissionData: FormSubmission = {
+        name: formData.name,
+        email: formData.email,
+        selected_service: formData.selectedService,
+        company_name: formData.companyName || undefined,
+        problems: formData.problems,
+        additional_info: formData.additionalInfo || undefined,
+      };
+
+      // Insert into Supabase
+      const { data, error } = await supabase
+        .from(TABLES.FORM_SUBMISSIONS)
+        .insert([submissionData])
+        .select();
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw new Error('Failed to submit form. Please try again.');
+      }
+
+      console.log('Form submitted successfully:', data);
+      setIsSubmitted(true);
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitError(error instanceof Error ? error.message : 'An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackToHome = () => {
@@ -147,6 +177,13 @@ const ContactForm = () => {
 
           <ScrollReveal delay={0.2}>
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              {/* Error Message */}
+              {submitError && (
+                <div className="p-4 bg-red-50 border border-red-200 text-red-600 font-ultra-light text-sm">
+                  {submitError}
+                </div>
+              )}
+
               {/* Name Field */}
               <div className="group">
                 <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
