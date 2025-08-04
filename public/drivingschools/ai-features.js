@@ -217,16 +217,33 @@ function loadVoiceDemo(container) {
                 <div class="voice-avatar" style="font-size: 4rem; margin-bottom: 1rem;">📞</div>
                 <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">live ai voice agent</h3>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary); line-height: 1.4;">
-                    click the microphone below to speak with our actual ai assistant!<br>
+                    click the call button below to speak with our actual ai assistant!<br>
                     try asking about lesson prices, availability, or booking.
                 </p>
                 
                 <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
-                    <vapi-widget 
-                        assistant-id="0edec998-9579-4fdf-8704-63a063594fe5" 
-                        public-key="932192f7-3aaa-4800-9bfe-d6a0512d5c8d"
-                        style="transform: scale(1.5); margin: 1rem;">
-                    </vapi-widget>
+                    <div id="vapiWidgetContainer" style="min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <button id="vapiCallBtn" style="
+                            background: #4CAF50; 
+                            color: white; 
+                            border: none; 
+                            border-radius: 50%; 
+                            width: 80px; 
+                            height: 80px; 
+                            font-size: 2rem; 
+                            cursor: pointer; 
+                            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🎤</button>
+                        <vapi-widget 
+                            assistant-id="0edec998-9579-4fdf-8704-63a063594fe5" 
+                            public-key="932192f7-3aaa-4800-9bfe-d6a0512d5c8d"
+                            style="display: none;">
+                        </vapi-widget>
+                    </div>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #28a745;">
@@ -240,6 +257,51 @@ function loadVoiceDemo(container) {
     `;
     
     container.innerHTML = voiceHTML;
+    
+    // Initialize the voice agent
+    setTimeout(() => {
+        initVoiceAgent();
+    }, 500);
+}
+
+function initVoiceAgent() {
+    const vapiBtn = document.getElementById('vapiCallBtn');
+    const vapiWidget = document.querySelector('vapi-widget');
+    
+    if (vapiBtn) {
+        vapiBtn.addEventListener('click', function() {
+            // Try to use the Vapi widget if available
+            if (vapiWidget && typeof vapiWidget.start === 'function') {
+                vapiWidget.start();
+            } else if (window.vapi) {
+                // Fallback to direct Vapi API
+                window.vapi.start('0edec998-9579-4fdf-8704-63a063594fe5');
+            } else {
+                // Ultimate fallback - show instructions
+                vapiBtn.innerHTML = '📞';
+                vapiBtn.style.background = '#ff6b35';
+                setTimeout(() => {
+                    alert('AI Voice Agent is being initialized. Please refresh the page and try again in a moment.');
+                    vapiBtn.innerHTML = '🎤';
+                    vapiBtn.style.background = '#4CAF50';
+                }, 100);
+            }
+        });
+    }
+    
+    // Check if Vapi widget loaded and hide fallback button
+    setTimeout(() => {
+        const vapiWidgets = document.querySelectorAll('vapi-widget');
+        if (vapiWidgets.length > 0) {
+            vapiWidgets.forEach(widget => {
+                if (widget.shadowRoot || widget.children.length > 0) {
+                    // Widget has loaded, show it and hide fallback
+                    widget.style.display = 'block';
+                    if (vapiBtn) vapiBtn.style.display = 'none';
+                }
+            });
+        }
+    }, 2000);
 }
 
 // Voice interaction function removed - now using real Vapi widget
