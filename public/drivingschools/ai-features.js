@@ -783,3 +783,4 @@ window.loadTutorDemo = loadTutorDemo;
 window.loadDocumentsDemo = loadDocumentsDemo;
 window.loadLessonsDemo = loadLessonsDemo;
 window.loadAssistantDemo = loadAssistantDemo;
+window.initVoiceAgent = initVoiceAgent;
