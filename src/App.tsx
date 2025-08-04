@@ -9,6 +9,7 @@ import About from './components/About';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import CookiePolicy from './components/CookiePolicy';
+
 import { SplashCursor } from '@/components/ui/splash-cursor';
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
   if (currentPath === '/cookie-policy') {
     return <CookiePolicy />;
   }
+
+
 
   // Default landing page
   return (
