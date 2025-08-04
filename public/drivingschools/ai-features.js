@@ -213,77 +213,36 @@ function initChatbotInteraction() {
 function loadVoiceDemo(container) {
     const voiceHTML = `
         <div class="demo-voice active">
-            <div class="voice-interface">
-                <div class="voice-avatar" id="voiceAvatar">🎤</div>
-                <h3>AI Voice Agent</h3>
-                <p>Automated phone call handling</p>
-                <div class="voice-transcript" id="voiceTranscript">
-                    <p>Click "Start Call" to see a live demonstration</p>
+            <div class="voice-interface" style="text-align: center; padding: 2rem 1rem;">
+                <div class="voice-avatar" style="font-size: 4rem; margin-bottom: 1rem;">📞</div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">live ai voice agent</h3>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary); line-height: 1.4;">
+                    click the microphone below to speak with our actual ai assistant!<br>
+                    try asking about lesson prices, availability, or booking.
+                </p>
+                
+                <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
+                    <vapi-widget 
+                        assistant-id="0edec998-9579-4fdf-8704-63a063594fe5" 
+                        public-key="932192f7-3aaa-4800-9bfe-d6a0512d5c8d"
+                        style="transform: scale(1.5); margin: 1rem;">
+                    </vapi-widget>
                 </div>
-                <div class="voice-controls">
-                    <button class="voice-btn" id="startCall">Start Call</button>
-                    <button class="voice-btn" id="endCall" disabled>End Call</button>
+                
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #28a745;">
+                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                        🎯 <strong>this is a real ai agent</strong> - not a simulation!<br>
+                        it can actually book lessons and answer questions about driving school services.
+                    </p>
                 </div>
             </div>
         </div>
     `;
     
     container.innerHTML = voiceHTML;
-    initVoiceInteraction();
 }
 
-function initVoiceInteraction() {
-    const startCall = document.getElementById('startCall');
-    const endCall = document.getElementById('endCall');
-    const voiceAvatar = document.getElementById('voiceAvatar');
-    const voiceTranscript = document.getElementById('voiceTranscript');
-    
-    if (!startCall || !endCall || !voiceAvatar || !voiceTranscript) return;
-    
-    let callInProgress = false;
-    let conversationIndex = 0;
-    
-    function startCallDemo() {
-        callInProgress = true;
-        conversationIndex = 0;
-        startCall.disabled = true;
-        endCall.disabled = false;
-        voiceAvatar.classList.add('speaking');
-        
-        playConversation();
-    }
-    
-    function endCallDemo() {
-        callInProgress = false;
-        startCall.disabled = false;
-        endCall.disabled = true;
-        voiceAvatar.classList.remove('speaking');
-        voiceTranscript.innerHTML = '<p>Call ended. Click "Start Call" to see another demonstration.</p>';
-    }
-    
-    function playConversation() {
-        const script = demoData.voice.scripts[0];
-        if (conversationIndex >= script.conversation.length) {
-            setTimeout(endCallDemo, 2000);
-            return;
-        }
-        
-        const line = script.conversation[conversationIndex];
-        voiceTranscript.innerHTML = `
-            <p><strong>${line.speaker}:</strong></p>
-            <p>${line.text}</p>
-        `;
-        
-        conversationIndex++;
-        
-        if (callInProgress) {
-            setTimeout(playConversation, 3000);
-        }
-    }
-    
-    startCall.addEventListener('click', startCallDemo);
-    endCall.addEventListener('click', endCallDemo);
-}
+// Voice interaction function removed - now using real Vapi widget
 
 // SMS Demo
 function loadSMSDemo(container) {

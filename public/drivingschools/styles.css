@@ -161,7 +161,7 @@ p {
 
 .mobile-menu {
     position: fixed;
-    top: 100%;
+    top: 60px;
     left: 0;
     right: 0;
     background: var(--background-color);
@@ -170,7 +170,7 @@ p {
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
+    transition: all 0.3s ease-in-out;
     z-index: 999;
 }
 
@@ -520,8 +520,8 @@ p {
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 500;
-    opacity: 0;
-    transform: translateX(20px);
+    opacity: 1;
+    transform: translateX(0);
     transition: var(--transition);
     animation: bounce 2s infinite;
 }
@@ -588,12 +588,18 @@ p {
     background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    min-height: 600px;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .demo-container {
+        min-height: 350px;
+    }
 }
 
 .demo-placeholder {
@@ -609,11 +615,20 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
     overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .demo-chatbot, .demo-booking, .demo-tutor, .demo-voice, .demo-sms, .demo-documents, .demo-lessons, .demo-assistant {
+        padding: 0.5rem;
+    }
 }
 
 .demo-chatbot.active, .demo-booking.active, .demo-tutor.active, .demo-voice.active, .demo-sms.active, .demo-documents.active, .demo-lessons.active, .demo-assistant.active {
@@ -623,12 +638,13 @@ p {
 
 /* Chatbot Demo Styles */
 .chatbot-interface {
-    height: 100%;
+    width: 100%;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
-    max-width: 500px;
     margin: 0 auto;
-    min-height: 500px;
+    height: auto;
+    max-height: 320px;
 }
 
 .chatbot-header {
@@ -717,11 +733,21 @@ p {
 
 /* Booking Demo Styles */
 .booking-interface {
-    height: 100%;
+    width: 100%;
+    max-width: 600px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-md);
-    min-height: 500px;
+    gap: var(--spacing-sm);
+    height: auto;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .booking-interface {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+        max-width: 100%;
+    }
 }
 
 .booking-calendar {
@@ -848,12 +874,18 @@ p {
 
 /* Tutor Demo Styles */
 .tutor-interface {
-    height: 100%;
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    max-width: 700px;
     margin: 0 auto;
-    min-height: 500px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .tutor-interface {
+        max-width: 100%;
+    }
 }
 
 .quiz-header {
@@ -936,13 +968,22 @@ p {
 
 /* Voice Demo Styles */
 .voice-interface {
-    height: 100%;
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 500px;
+    height: auto;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .voice-interface {
+        max-width: 100%;
+        padding: 1rem;
+    }
 }
 
 .voice-avatar {
@@ -1364,7 +1405,14 @@ p {
     }
     
     .nav {
-        padding: 0.75rem 0;
+        padding: 0.75rem var(--spacing-sm);
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .nav-brand {
+        flex: 1;
+        text-align: center;
     }
     
     .hero {

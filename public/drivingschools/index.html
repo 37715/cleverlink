@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Driving School Solutions | CleverLink.ai</title>
-    <meta name="description" content="Transform your driving school with AI. Automated booking, intelligent tutoring, and business management tools designed for UK driving schools.">
+    <title>ai-powered driving school solutions | cleverlink.ai</title>
+    <meta name="description" content="transform your driving school with ai. automated booking, intelligent tutoring, and business management tools designed for uk driving schools.">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
 </head>
 <body>
     <!-- Header -->
@@ -49,8 +49,9 @@
                 <h1 class="hero-title">transform your driving school with ai</h1>
                 <p class="hero-subtitle">automated booking, intelligent tutoring, and comprehensive business management. experience the future of driving instruction.</p>
                 <div class="hero-actions">
-                    <button class="btn btn-primary" id="demoBtn">see live demo</button>
-                    <a href="#features" class="btn btn-secondary">explore features</a>
+                    <button class="btn btn-primary contact-btn-hero" id="getInContactHero" style="background: #000; color: #fff; border: 2px solid #000; font-weight: 600; padding: 0.875rem 2rem; font-size: 1.1rem;">get in contact</button>
+                    <button class="btn btn-secondary" id="demoBtn">see live demo</button>
+                    <a href="#features" class="btn btn-tertiary">explore features</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -197,8 +198,7 @@
                 <h2 class="cta-title">ready to transform your driving school?</h2>
                 <p class="cta-subtitle">join forward-thinking driving schools already using ai to grow their business</p>
                 <div class="cta-actions">
-                    <a href="https://cleverlink.uk/contact" class="btn btn-primary">get started today</a>
-                    <button class="btn btn-secondary" id="getInContact">get in contact</button>
+                    <button class="btn btn-primary contact-btn-main" id="getInContact" style="background: #000; color: #fff; border: 2px solid #000; font-weight: 600; padding: 1rem 2.5rem; font-size: 1.2rem; min-width: 250px;">get in contact</button>
                 </div>
             </div>
         </div>
@@ -225,8 +225,8 @@
                         <a href="https://cleverlink.uk/contact">contact</a>
                         <a href="https://cleverlink.uk/privacy">privacy</a>
                         <div class="office-info">
-                            <p><strong>Office:</strong> Hampshire, United Kingdom</p>
-                            <p><strong>Email:</strong> cleverlink.ai@outlook.com</p>
+                            <p><strong>office:</strong> hampshire, united kingdom</p>
+                            <p><strong>email:</strong> cleverlink.ai@outlook.com</p>
                         </div>
                     </div>
                 </div>
@@ -241,46 +241,129 @@
     <div class="contact-overlay" id="contactOverlay">
         <div class="contact-modal">
             <div class="contact-header">
-                <h3>Get in Contact</h3>
+                <h3>get in contact</h3>
                 <button class="close-btn" id="closeContact">&times;</button>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h4>Contact Information</h4>
-                    <p><strong>Email:</strong> cleverlink.ai@outlook.com</p>
-                    <p><strong>Office:</strong> Hampshire, United Kingdom</p>
-                    <p><strong>Response Time:</strong> Within 24 hours</p>
+                    <h4>contact information</h4>
+                    <p><strong>email:</strong> cleverlink.ai@outlook.com</p>
+                    <p><strong>office:</strong> hampshire, united kingdom</p>
+                    <p><strong>response time:</strong> within 24 hours</p>
                 </div>
                 <form class="contact-form" id="contactForm">
                     <div class="form-group">
-                        <label for="businessName">Driving School Name</label>
+                        <label for="businessName">driving school name</label>
                         <input type="text" id="businessName" name="businessName" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactName">Your Name</label>
+                        <label for="contactName">your name</label>
                         <input type="text" id="contactName" name="contactName" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email Address</label>
+                        <label for="email">email address</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
+                        <label for="phone">phone number</label>
                         <input type="tel" id="phone" name="phone">
                     </div>
                     <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" name="location" placeholder="City, County">
+                        <label for="location">location</label>
+                        <input type="text" id="location" name="location" placeholder="city, county">
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Tell us about your driving school and how we can help..."></textarea>
+                        <label for="message">message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="tell us about your driving school and how we can help..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary">send message</button>
                 </form>
             </div>
         </div>
     </div>
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <!-- Vapi Voice Agent Widget -->
+    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
+    
+    <script>
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://vlqdsygwsqjigohinndg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZscWRzeWd3c3FqaWdvaGlubmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNjA0NTgsImV4cCI6MjA2NzczNjQ1OH0.RROoWnGcQzTd6rjWKp68SgMMAV7c1RS4oql0bRZ0_S0';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Override contact form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'sending...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const formData = new FormData(contactForm);
+                        const submissionData = {
+                            name: formData.get('contactName'),
+                            email: formData.get('email'),
+                            selected_service: 'driving school ai solutions',
+                            company_name: formData.get('businessName'),
+                            problems: `Location: ${formData.get('location') || 'Not specified'}\nPhone: ${formData.get('phone') || 'Not provided'}\n\nMessage: ${formData.get('message')}`,
+                            additional_info: 'Submitted from driving schools showcase page'
+                        };
+                        
+                        // Insert into Supabase
+                        const { data, error } = await supabase
+                            .from('form_submissions')
+                            .insert([submissionData])
+                            .select();
+                        
+                        if (error) {
+                            throw new Error('Failed to submit form. Please try again.');
+                        }
+                        
+                        // Send notification emails
+                        try {
+                            await supabase.functions.invoke('send-emails', {
+                                body: { 
+                                    formData: {
+                                        name: submissionData.name,
+                                        email: submissionData.email,
+                                        selectedService: 'driving school ai solutions',
+                                        companyName: submissionData.company_name,
+                                        problems: submissionData.problems,
+                                        additionalInfo: submissionData.additional_info
+                                    }
+                                }
+                            });
+                        } catch (emailError) {
+                            console.log('Email sending failed, but form submitted successfully');
+                        }
+                        
+                        // Show success message
+                        contactForm.innerHTML = `
+                            <div style="text-align: center; padding: 2rem;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                                <h3 style="margin-bottom: 1rem;">thank you!</h3>
+                                <p style="color: var(--secondary-color);">we've received your information and will be in touch within 24 hours.</p>
+                            </div>
+                        `;
+                        
+                    } catch (error) {
+                        console.error('Form submission error:', error);
+                        alert('Sorry, there was an error submitting your form. Please try again or email us directly at cleverlink.ai@outlook.com');
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
     
     <script src="script.js"></script>
     <script src="ai-features.js"></script>

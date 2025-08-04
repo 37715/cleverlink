@@ -190,12 +190,21 @@ function initDemoSystem() {
 // CTA button interactions
 function initCTAButtons() {
     const getInContact = document.getElementById('getInContact');
+    const getInContactHero = document.getElementById('getInContactHero');
     const contactOverlay = document.getElementById('contactOverlay');
     const closeContact = document.getElementById('closeContact');
     const contactForm = document.getElementById('contactForm');
     
+    // Main CTA button
     if (getInContact && contactOverlay) {
         getInContact.addEventListener('click', function() {
+            contactOverlay.classList.add('active');
+        });
+    }
+    
+    // Hero contact button
+    if (getInContactHero && contactOverlay) {
+        getInContactHero.addEventListener('click', function() {
             contactOverlay.classList.add('active');
         });
     }
