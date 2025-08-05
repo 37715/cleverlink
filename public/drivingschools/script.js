@@ -324,7 +324,7 @@ function loadDemo(demoType) {
                 loadLessonsDemo(demoContainer);
                 break;
             case 'assistant':
-                loadAssistantDemo(demoContainer);
+                loadWebsiteDemo(demoContainer);
                 break;
             default:
                 demoContainer.innerHTML = '<div class="demo-placeholder"><p>Select a feature above to see a live demonstration</p></div>';

@@ -36,21 +36,21 @@ function showCleanNotification(message, type = 'info') {
 const demoData = {
     chatbot: {
         messages: [
-            { type: 'bot', text: 'Hello! I\'m your AI assistant. How can I help you today?' },
-            { type: 'user', text: 'What are your lesson prices?' },
-            { type: 'bot', text: 'Our driving lessons are £35 per hour for standard lessons. We also offer intensive courses and block bookings with discounts. Would you like to know more about any specific package?' },
-            { type: 'user', text: 'Do you offer automatic car lessons?' },
-            { type: 'bot', text: 'Yes! We offer lessons in both manual and automatic vehicles. Automatic lessons are the same price at £35 per hour. Would you like to book a lesson or get more information?' }
+            { type: 'bot', text: 'hello! i\'m your ai assistant. how can i help you today?' },
+            { type: 'user', text: 'what are your lesson prices?' },
+            { type: 'bot', text: 'our driving lessons are £35 per hour for standard lessons. we also offer intensive courses and block bookings with discounts. would you like to know more about any specific package?' },
+            { type: 'user', text: 'do you offer automatic car lessons?' },
+            { type: 'bot', text: 'yes! we offer lessons in both manual and automatic vehicles. automatic lessons are the same price at £35 per hour. would you like to book a lesson or get more information?' }
         ],
         responses: {
-            'hello': 'Hello! I\'m here to help with any questions about our driving lessons. What would you like to know?',
-            'price': 'Our lessons are £35 per hour. We offer discounts for block bookings of 10+ lessons.',
-            'booking': 'I can help you book a lesson! What day and time works best for you?',
-            'test': 'We provide comprehensive theory and practical test preparation. Our pass rate is over 85%!',
-            'instructor': 'All our instructors are DVSA approved with years of experience. Would you like to meet your local instructor?',
-            'area': 'We cover all areas within 10 miles of our main locations. Where would you like lessons?',
-            'automatic': 'Yes, we offer both manual and automatic driving lessons at the same price.',
-            'intensive': 'Our intensive courses range from 1-week to 4-week programs. Shall I check availability?'
+            'hello': 'hello! i\'m here to help with any questions about our driving lessons. what would you like to know?',
+            'price': 'our lessons are £35 per hour. we offer discounts for block bookings of 10+ lessons.',
+            'booking': 'i can help you book a lesson! what day and time works best for you?',
+            'test': 'we provide comprehensive theory and practical test preparation. our pass rate is over 85%!',
+            'instructor': 'all our instructors are dvsa approved with years of experience. would you like to meet your local instructor?',
+            'area': 'we cover all areas within 10 miles of our main locations. where would you like lessons?',
+            'automatic': 'yes, we offer both manual and automatic driving lessons at the same price.',
+            'intensive': 'our intensive courses range from 1-week to 4-week programs. shall i check availability?'
         }
     },
     
@@ -438,7 +438,7 @@ function loadBookingDemo(container) {
                 <div class="booking-calendar">
                     <div class="calendar-header">
                         <button id="prevMonth"><</button>
-                        <h4 id="currentMonth">January 2025</h4>
+                        <h4 id="currentMonth">january 2025</h4>
                         <button id="nextMonth">></button>
                     </div>
                     <div class="calendar-grid" id="calendarGrid">
@@ -504,7 +504,7 @@ function initBookingInteraction() {
     }
     
     function showTimeSlots(day) {
-        selectedDateEl.textContent = `January ${day}, 2025`;
+        selectedDateEl.textContent = `january ${day}, 2025`;
         
         const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
         timeSlots.innerHTML = '';
@@ -545,15 +545,15 @@ function loadTutorDemo(container) {
         <div class="demo-tutor active">
             <div class="tutor-interface">
                 <div class="quiz-header">
-                    <h4>AI Highway Code Tutor</h4>
-                    <p>Interactive learning and test preparation</p>
+                    <h4>ai theory test trainer</h4>
+                    <p>interactive learning and test preparation</p>
                 </div>
                 <div class="quiz-content">
                     <div class="quiz-question" id="quizQuestion">
-                        Click "Start Quiz" to begin
+                        click "start quiz" to begin
                     </div>
                     <div class="quiz-options" id="quizOptions">
-                        <button class="btn btn-primary" id="startQuiz">Start Quiz</button>
+                        <button class="btn btn-primary" id="startQuiz">start quiz</button>
                     </div>
                     <div class="quiz-feedback" id="quizFeedback"></div>
                 </div>
@@ -631,15 +631,15 @@ function initTutorInteraction() {
     
     function showResults() {
         const percentage = Math.round((score / demoData.tutor.questions.length) * 100);
-        quizQuestion.textContent = `Quiz Complete! You scored ${score}/${demoData.tutor.questions.length} (${percentage}%)`;
+        quizQuestion.textContent = `quiz complete! you scored ${score}/${demoData.tutor.questions.length} (${percentage}%)`;
         
         quizOptions.innerHTML = `
-            <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
-            <button class="btn btn-secondary" id="moreQuestions">More Questions</button>
+            <button class="btn btn-primary" onclick="location.reload()">try again</button>
+            <button class="btn btn-secondary" id="moreQuestions">more questions</button>
         `;
         
         quizFeedback.className = 'quiz-feedback show correct';
-        quizFeedback.textContent = percentage >= 80 ? 'Excellent work! You\'re ready for the theory test.' : 'Good effort! Keep practicing to improve your score.';
+        quizFeedback.textContent = percentage >= 80 ? 'excellent work! you\'re ready for the theory test.' : 'good effort! keep practicing to improve your score.';
     }
     
     if (startQuiz) {
@@ -771,65 +771,87 @@ function loadLessonsDemo(container) {
     container.innerHTML = lessonsHTML;
 }
 
-// AI Assistant Demo
-function loadAssistantDemo(container) {
-    const assistantHTML = `
-        <div class="demo-assistant active">
+// Modern Website Development Demo
+function loadWebsiteDemo(container) {
+    const websiteHTML = `
+        <div class="demo-website active">
             <div style="height: 100%; padding: 1rem; min-height: 500px;">
-                <h4>AI Business Assistant</h4>
+                <h4>modern website development</h4>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
                     <div>
-                        <h5>Business Insights</h5>
+                        <h5>website features</h5>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
                             <div style="text-align: center; padding: 1rem; border: 1px solid #f0f0f0; border-radius: 0.5rem;">
-                                <div style="font-size: 1.5rem; font-weight: 600; color: #28a745;">£2,840</div>
-                                <div style="color: #666; font-size: 0.9rem;">This Week Revenue</div>
+                                <div style="font-size: 1.5rem; font-weight: 600; color: #28a745;">📱</div>
+                                <div style="color: #666; font-size: 0.9rem;">mobile responsive</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; border: 1px solid #f0f0f0; border-radius: 0.5rem;">
-                                <div style="font-size: 1.5rem; font-weight: 600; color: #007bff;">23</div>
-                                <div style="color: #666; font-size: 0.9rem;">Lessons Completed</div>
+                                <div style="font-size: 1.5rem; font-weight: 600; color: #007bff;">⚡</div>
+                                <div style="color: #666; font-size: 0.9rem;">lightning fast</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; border: 1px solid #f0f0f0; border-radius: 0.5rem;">
-                                <div style="font-size: 1.5rem; font-weight: 600; color: #ffc107;">5</div>
-                                <div style="color: #666; font-size: 0.9rem;">Pending Bookings</div>
+                                <div style="font-size: 1.5rem; font-weight: 600; color: #ffc107;">🔍</div>
+                                <div style="color: #666; font-size: 0.9rem;">seo optimised</div>
                             </div>
                             <div style="text-align: center; padding: 1rem; border: 1px solid #f0f0f0; border-radius: 0.5rem;">
-                                <div style="font-size: 1.5rem; font-weight: 600; color: #dc3545;">2</div>
-                                <div style="color: #666; font-size: 0.9rem;">Overdue Payments</div>
+                                <div style="font-size: 1.5rem; font-weight: 600; color: #dc3545;">🎨</div>
+                                <div style="color: #666; font-size: 0.9rem;">modern design</div>
                             </div>
                         </div>
                         
-                        <h5>AI Recommendations</h5>
+                        <h5>included features</h5>
                         <div style="background: #e8f5e8; border-left: 4px solid #28a745; padding: 1rem; margin-bottom: 1rem;">
-                            <strong>Optimize Schedule</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: #2d5016;">You have 3 free slots this Thursday. Consider offering last-minute discounts to fill them.</p>
+                            <strong>online booking system</strong>
+                            <p style="margin: 0.5rem 0 0 0; color: #2d5016;">students can book lessons 24/7 with automatic calendar integration and payment processing.</p>
+                        </div>
+                        
+                        <div style="background: #e3f2fd; border-left: 4px solid #007bff; padding: 1rem; margin-bottom: 1rem;">
+                            <strong>ai chatbot support</strong>
+                            <p style="margin: 0.5rem 0 0 0; color: #0d47a1;">answer common questions instantly and capture leads even when you're busy teaching.</p>
                         </div>
                         
                         <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem;">
-                            <strong>Follow Up Students</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: #856404;">3 students haven't booked their next lesson. AI will send automatic follow-up messages.</p>
+                            <strong>google maps integration</strong>
+                            <p style="margin: 0.5rem 0 0 0; color: #856404;">students can easily find you with integrated maps and driving directions to test centres.</p>
                         </div>
                     </div>
                     
                     <div>
-                        <h5>AI Chat Assistant</h5>
-                        <div style="background: #f8f9fa; border: 1px solid #f0f0f0; border-radius: 0.5rem; height: 400px; display: flex; flex-direction: column;">
-                            <div style="flex: 1; padding: 1rem; overflow-y: auto;">
-                                <div style="background: white; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 1px solid #e0e0e0;">
-                                    <strong>You:</strong> How's business looking this month?
-                                </div>
-                                <div style="background: #007bff; color: white; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem;">
-                                    <strong>AI:</strong> Great question! This month you're up 15% compared to last month. You've completed 89 lessons with a 92% satisfaction rate. Revenue is tracking to hit £12,500.
-                                </div>
-                                <div style="background: white; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 1px solid #e0e0e0;">
-                                    <strong>You:</strong> Any students at risk of dropping out?
-                                </div>
-                                <div style="background: #007bff; color: white; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem;">
-                                    <strong>AI:</strong> I've identified 2 students who may need attention: Sarah Johnson (seems to lack confidence) and Mike Wilson (irregular booking pattern). Shall I suggest intervention strategies?
-                                </div>
+                        <h5>website preview</h5>
+                        <div style="background: #f8f9fa; border: 1px solid #f0f0f0; border-radius: 0.5rem; height: 400px; overflow: hidden; position: relative;">
+                            <div style="background: #2c3e50; color: white; padding: 0.5rem 1rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 8px; height: 8px; background: #ff5f56; border-radius: 50%;"></div>
+                                <div style="width: 8px; height: 8px; background: #ffbd2e; border-radius: 50%;"></div>
+                                <div style="width: 8px; height: 8px; background: #27ca3f; border-radius: 50%;"></div>
+                                <span style="margin-left: 1rem;">bristol-driving-academy.co.uk</span>
                             </div>
-                            <div style="padding: 1rem; border-top: 1px solid #e0e0e0; background: white;">
-                                <input type="text" placeholder="Ask your AI assistant anything..." style="width: 100%; padding: 0.5rem; border: 1px solid #e0e0e0; border-radius: 0.25rem;" />
+                            <div style="padding: 1rem; height: calc(100% - 40px); overflow-y: auto; background: white;">
+                                <div style="text-align: center; padding: 2rem 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 1rem; border-radius: 0.5rem;">
+                                    <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem;">bristol driving academy</h3>
+                                    <p style="margin: 0; opacity: 0.9;">learn to drive with confidence</p>
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
+                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🚗</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600;">manual lessons</div>
+                                        <div style="color: #666; font-size: 0.8rem;">from £35/hour</div>
+                                    </div>
+                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
+                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">⚙️</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600;">automatic lessons</div>
+                                        <div style="color: #666; font-size: 0.8rem;">from £35/hour</div>
+                                    </div>
+                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
+                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">📚</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600;">theory support</div>
+                                        <div style="color: #666; font-size: 0.8rem;">free with lessons</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: #28a745; color: white; padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                                    <button style="background: white; color: #28a745; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; font-weight: 600; cursor: pointer;">book your first lesson</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -838,7 +860,7 @@ function loadAssistantDemo(container) {
         </div>
     `;
     
-    container.innerHTML = assistantHTML;
+    container.innerHTML = websiteHTML;
 }
 
 
@@ -851,6 +873,6 @@ window.loadBookingDemo = loadBookingDemo;
 window.loadTutorDemo = loadTutorDemo;
 window.loadDocumentsDemo = loadDocumentsDemo;
 window.loadLessonsDemo = loadLessonsDemo;
-window.loadAssistantDemo = loadAssistantDemo;
+window.loadWebsiteDemo = loadWebsiteDemo;
 window.initVoiceAgent = initVoiceAgent;
 window.showCleanNotification = showCleanNotification;
