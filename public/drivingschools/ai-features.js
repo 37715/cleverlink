@@ -271,30 +271,6 @@ function loadVoiceDemo(container) {
                             justify-content: center;
                             gap: 8px;
                         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">📞 click to test ai phone agent</button>
-                        <vapi-widget
-                            public-key="932192f7-3aaa-4800-9bfe-d6a0512d5c8d"
-                            assistant-id="0edec998-9579-4fdf-8704-63a063594fe5"
-                            mode="voice"
-                            theme="dark"
-                            base-bg-color="#000000"
-                            accent-color="#14B8A6"
-                            cta-button-color="#000000"
-                            cta-button-text-color="#ffffff"
-                            border-radius="large"
-                            size="full"
-                            position="bottom-right"
-                            title="TALK WITH AI"
-                            start-button-text="Start"
-                            end-button-text="End Call"
-                            chat-first-message="Hey, How can I help you today?"
-                            chat-placeholder="Type your message..."
-                            voice-show-transcript="true"
-                            consent-required="true"
-                            consent-title="Terms and conditions"
-                            consent-content="By clicking "Agree," and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
-                            consent-storage-key="vapi_widget_consent"
-                            style="display: none;">
-                        </vapi-widget>
                     </div>
                 </div>
                 
@@ -318,120 +294,77 @@ function loadVoiceDemo(container) {
 
 function initVoiceAgent() {
     const vapiBtn = document.getElementById('vapiCallBtn');
-    const vapiWidget = document.querySelector('vapi-widget');
     
     if (vapiBtn) {
         vapiBtn.addEventListener('click', function() {
             console.log('🎯 AI Phone Agent button clicked!');
             
-            // Check if widget is initialized (has shadowRoot)
-            const isWidgetInitialized = vapiWidget && vapiWidget.shadowRoot;
-            
-            if (isWidgetInitialized) {
-                console.log('Using initialized vapi-widget');
+            // Try to start Vapi call using our manual function
+            if (window.startVapiCall && typeof window.startVapiCall === 'function') {
+                console.log('✅ Using manual Vapi start function');
                 try {
-                    // Make widget visible and trigger it
-                    vapiWidget.style.display = 'block';
-                    vapiWidget.style.position = 'relative';
-                    vapiWidget.style.zIndex = '10000';
-                    
-                    console.log('Looking for start button in shadowRoot...');
-                    
-                    // Try multiple ways to trigger the widget
-                    if (typeof vapiWidget.startCall === 'function') {
-                        console.log('Using startCall method');
-                        vapiWidget.startCall();
+                    const started = window.startVapiCall();
+                    if (started) {
                         showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
-                    } else if (typeof vapiWidget.start === 'function') {
-                        console.log('Using start method');
-                        vapiWidget.start();
-                        showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
-                    } else if (vapiWidget.shadowRoot) {
-                        // Look for the actual Vapi start button in the shadow DOM
-                        const shadowButtons = vapiWidget.shadowRoot.querySelectorAll('button');
-                        console.log('Found shadow buttons:', shadowButtons.length);
                         
-                        // Try to find the start button (usually contains "Start" text)
-                        let startButton = null;
-                        shadowButtons.forEach(btn => {
-                            console.log('Button text:', btn.textContent);
-                            if (btn.textContent.includes('Start') || btn.textContent.includes('Call') || btn.classList.contains('start')) {
-                                startButton = btn;
+                        // Change button appearance to show it's active
+                        vapiBtn.style.background = '#ff4444';
+                        vapiBtn.textContent = '📞 click to end call';
+                        vapiBtn.disabled = false;
+                        vapiBtn.onclick = function() {
+                            if (window.vapiInstance && window.vapiInstance.stop) {
+                                window.vapiInstance.stop();
+                                window.resetVapiButton();
                             }
-                        });
-                        
-                        if (startButton) {
-                            console.log('Found start button, clicking it');
-                            startButton.click();
-                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
-                        } else if (shadowButtons.length > 0) {
-                            console.log('No start button found, clicking first button');
-                            shadowButtons[0].click();
-                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
-                        } else {
-                            console.log('No buttons found in shadow DOM, trying click event');
-                            const clickEvent = new MouseEvent('click', {
-                                bubbles: true,
-                                cancelable: true,
-                                view: window
-                            });
-                            vapiWidget.dispatchEvent(clickEvent);
-                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
-                        }
+                        };
                     } else {
-                        console.log('No shadow DOM methods available, trying generic click');
-                        const clickEvent = new MouseEvent('click', {
-                            bubbles: true,
-                            cancelable: true,
-                            view: window
-                        });
-                        vapiWidget.dispatchEvent(clickEvent);
-                        showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                        showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
                     }
                 } catch (error) {
-                    console.error('Widget trigger error:', error);
+                    console.error('Manual Vapi start error:', error);
                     showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
                 }
-            } else if (vapiWidget) {
-                console.log('📍 Widget exists but not initialized (normal on localhost)');
-                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly<br><small>vapi widget requires a live domain to function</small>', 'info');
-            } else if (window.vapiSDK && window.vapiSDK.run) {
-                console.log('Using vapiSDK.run method');
+            } else if (window.vapiSDK && typeof window.vapiSDK.run === 'function') {
+                console.log('✅ Using direct vapiSDK.run method');
                 try {
                     window.vapiSDK.run({
                         apiKey: '932192f7-3aaa-4800-9bfe-d6a0512d5c8d',
-                        assistant: '0edec998-9579-4fdf-8704-63a063594fe5'
+                        assistant: '0edec998-9579-4fdf-8704-63a063594fe5',
+                        config: {
+                            position: "none" // Don't show floating widget
+                        }
                     });
                     showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                    
+                    // Change button appearance to show it's active  
+                    vapiBtn.style.background = '#ff4444';
+                    vapiBtn.textContent = '📞 click to end call';
+                    vapiBtn.disabled = false;
+                    vapiBtn.onclick = function() {
+                        if (window.vapiInstance && window.vapiInstance.stop) {
+                            window.vapiInstance.stop();
+                            window.resetVapiButton();
+                        }
+                    };
                 } catch (error) {
                     console.error('Vapi SDK error:', error);
                     showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
                 }
             } else {
-                console.log('📍 No Vapi SDK available (normal on localhost)');
-                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly<br><small>deploy to a live domain to test the web widget</small>', 'info');
+                console.log('❌ No Vapi SDK available yet');
+                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly', 'info');
             }
         });
     }
     
-    // Check if Vapi widget becomes initialized (single check after delay)
+    // Check when SDK becomes available (no more hiding the button)
     setTimeout(() => {
-        const vapiWidgets = document.querySelectorAll('vapi-widget');
-        
-        if (vapiWidgets.length > 0) {
-            const widget = vapiWidgets[0];
-            if (widget.shadowRoot) {
-                console.log('✅ Vapi widget initialized successfully!');
-                widget.style.display = 'block';
-                
-                const shadowButtons = widget.shadowRoot.querySelectorAll('button');
-                console.log(`Found ${shadowButtons.length} buttons in shadow DOM`);
-            } else {
-                console.log('⚠️ Vapi widget exists but not initialized');
-                console.log('💡 This is expected on localhost - deploy to test Vapi');
-            }
+        if (window.vapiSDK) {
+            console.log('✅ Vapi SDK is ready for manual calls!');
+        } else {
+            console.log('⚠️ Vapi SDK not available after delay');
         }
-    }, 5000);
+    }, 3000);
 }
 
 // Voice interaction function removed - now using real Vapi widget
