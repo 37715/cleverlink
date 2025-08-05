@@ -777,10 +777,10 @@ function loadWebsiteDemo(container) {
         <div class="demo-website active">
             <div style="height: 100%; padding: 1rem; min-height: 500px;">
                 <h4>modern website development</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));" class="website-demo-grid">
                     <div>
                         <h5>website features</h5>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
                             <div style="text-align: center; padding: 1rem; border: 1px solid #f0f0f0; border-radius: 0.5rem;">
                                 <div style="font-size: 1.5rem; font-weight: 600; color: #28a745;">📱</div>
                                 <div style="color: #666; font-size: 0.9rem;">mobile responsive</div>
@@ -818,39 +818,82 @@ function loadWebsiteDemo(container) {
                     
                     <div>
                         <h5>website preview</h5>
-                        <div style="background: #f8f9fa; border: 1px solid #f0f0f0; border-radius: 0.5rem; height: 400px; overflow: hidden; position: relative;">
+                        <div class="website-preview" style="background: #f8f9fa; border: 1px solid #f0f0f0; border-radius: 0.5rem; height: 400px; max-height: 70vh; overflow: hidden; position: relative;">
                             <div style="background: #2c3e50; color: white; padding: 0.5rem 1rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <div style="width: 8px; height: 8px; background: #ff5f56; border-radius: 50%;"></div>
                                 <div style="width: 8px; height: 8px; background: #ffbd2e; border-radius: 50%;"></div>
                                 <div style="width: 8px; height: 8px; background: #27ca3f; border-radius: 50%;"></div>
                                 <span style="margin-left: 1rem;">bristol-driving-academy.co.uk</span>
                             </div>
-                            <div style="padding: 1rem; height: calc(100% - 40px); overflow-y: auto; background: white;">
-                                <div style="text-align: center; padding: 2rem 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 1rem; border-radius: 0.5rem;">
-                                    <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem;">bristol driving academy</h3>
-                                    <p style="margin: 0; opacity: 0.9;">learn to drive with confidence</p>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
-                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
-                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🚗</div>
-                                        <div style="font-size: 0.9rem; font-weight: 600;">manual lessons</div>
-                                        <div style="color: #666; font-size: 0.8rem;">from £35/hour</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
-                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">⚙️</div>
-                                        <div style="font-size: 0.9rem; font-weight: 600;">automatic lessons</div>
-                                        <div style="color: #666; font-size: 0.8rem;">from £35/hour</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem;">
-                                        <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">📚</div>
-                                        <div style="font-size: 0.9rem; font-weight: 600;">theory support</div>
-                                        <div style="color: #666; font-size: 0.8rem;">free with lessons</div>
+                            <div style="padding: 0; height: calc(100% - 40px); overflow-y: auto; background: white;">
+                                <!-- Hero Section -->
+                                <div style="position: relative; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 3rem 1.5rem; text-align: center; overflow: hidden;">
+                                    <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                                    <div style="position: absolute; bottom: -30px; left: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+                                    <h1 style="margin: 0 0 0.5rem 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px;">bristol driving academy</h1>
+                                    <p style="margin: 0 0 1.5rem 0; opacity: 0.95; font-size: 1rem;">your journey to independence starts here</p>
+                                    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                                        <button style="background: #ff6b35; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(255,107,53,0.3); transition: all 0.3s ease;">book now</button>
+                                        <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.75rem 1.5rem; border-radius: 25px; font-weight: 500; cursor: pointer;">learn more</button>
                                     </div>
                                 </div>
                                 
-                                <div style="background: #28a745; color: white; padding: 1rem; border-radius: 0.5rem; text-align: center;">
-                                    <button style="background: white; color: #28a745; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; font-weight: 600; cursor: pointer;">book your first lesson</button>
+                                <!-- Navigation Bar -->
+                                <div style="background: white; padding: 0.75rem 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-weight: 700; color: #1e3c72; font-size: 0.9rem;">📚 lessons</div>
+                                    <div style="font-weight: 700; color: #1e3c72; font-size: 0.9rem;">🎯 theory</div>
+                                    <div style="font-weight: 700; color: #1e3c72; font-size: 0.9rem;">📞 contact</div>
+                                </div>
+                                
+                                <!-- Services Grid -->
+                                <div style="padding: 2rem 1.5rem; background: #f8f9fa;">
+                                    <h2 style="text-align: center; margin: 0 0 1.5rem 0; color: #1e3c72; font-size: 1.4rem; font-weight: 600;">our services</h2>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                                        <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e9ecef; transition: all 0.3s ease;">
+                                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem;">🚗</div>
+                                            <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: #1e3c72;">manual lessons</h3>
+                                            <p style="margin: 0 0 0.75rem 0; color: #6c757d; font-size: 0.85rem; line-height: 1.4;">comprehensive manual transmission training</p>
+                                            <div style="color: #ff6b35; font-weight: 700; font-size: 1rem;">£35/hour</div>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e9ecef; transition: all 0.3s ease;">
+                                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem;">⚙️</div>
+                                            <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: #1e3c72;">automatic lessons</h3>
+                                            <p style="margin: 0 0 0.75rem 0; color: #6c757d; font-size: 0.85rem; line-height: 1.4;">easier learning with automatic transmission</p>
+                                            <div style="color: #ff6b35; font-weight: 700; font-size: 1rem;">£35/hour</div>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e9ecef; transition: all 0.3s ease;">
+                                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem;">📚</div>
+                                            <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: #1e3c72;">theory support</h3>
+                                            <p style="margin: 0 0 0.75rem 0; color: #6c757d; font-size: 0.85rem; line-height: 1.4;">free theory test preparation included</p>
+                                            <div style="color: #28a745; font-weight: 700; font-size: 1rem;">included</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stats Section -->
+                                <div style="background: white; padding: 2rem 1.5rem; text-align: center;">
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                        <div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: #1e3c72; margin-bottom: 0.25rem;">95%</div>
+                                            <div style="font-size: 0.8rem; color: #6c757d;">pass rate</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: #1e3c72; margin-bottom: 0.25rem;">500+</div>
+                                            <div style="font-size: 0.8rem; color: #6c757d;">students</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: #1e3c72; margin-bottom: 0.25rem;">5★</div>
+                                            <div style="font-size: 0.8rem; color: #6c757d;">rating</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Footer -->
+                                <div style="background: #1e3c72; color: white; padding: 1.5rem; text-align: center; font-size: 0.8rem;">
+                                    <div style="margin-bottom: 0.5rem;">📞 01234 567890 | 📧 info@bristol-driving.co.uk</div>
+                                    <div style="opacity: 0.7;">bristol driving academy • dvsa approved • fully insured</div>
                                 </div>
                             </div>
                         </div>
@@ -861,6 +904,88 @@ function loadWebsiteDemo(container) {
     `;
     
     container.innerHTML = websiteHTML;
+    
+    // Add mobile-specific styles
+    const mobileStyles = document.createElement('style');
+    mobileStyles.textContent = `
+        @media (max-width: 768px) {
+            .website-demo-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .demo-website h4 {
+                font-size: 1.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .demo-website h5 {
+                font-size: 1.1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .demo-website .website-preview {
+                height: 350px !important;
+                max-height: 60vh !important;
+            }
+            
+            .demo-website [style*="padding: 2rem 1rem"] {
+                padding: 1rem 0.5rem !important;
+            }
+            
+            .demo-website [style*="font-size: 1.5rem"] {
+                font-size: 1.2rem !important;
+            }
+            
+            .demo-website [style*="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))"] {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .demo-website [style*="grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))"] {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+            }
+            
+            .demo-website [style*="padding: 1rem"] {
+                padding: 0.75rem !important;
+            }
+            
+            .demo-website [style*="font-size: 0.9rem"] {
+                font-size: 0.85rem !important;
+            }
+            
+            .demo-website [style*="font-size: 0.8rem"] {
+                font-size: 0.75rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .website-demo-grid {
+                padding: 0.5rem !important;
+                gap: 1rem !important;
+            }
+            
+            .demo-website .website-preview {
+                height: 300px !important;
+                max-height: 50vh !important;
+            }
+            
+            .demo-website [style*="margin-left: 1rem"] {
+                margin-left: 0.5rem !important;
+                font-size: 0.7rem !important;
+            }
+            
+            .demo-website [style*="padding: 0.75rem"] {
+                padding: 0.5rem !important;
+            }
+        }
+    `;
+    
+    // Add styles to head if not already added
+    if (!document.querySelector('#website-demo-mobile-styles')) {
+        mobileStyles.id = 'website-demo-mobile-styles';
+        document.head.appendChild(mobileStyles);
+    }
 }
 
 
