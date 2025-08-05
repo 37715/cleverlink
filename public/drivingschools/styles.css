@@ -588,7 +588,7 @@ p {
     background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    min-height: 400px;
+    min-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;

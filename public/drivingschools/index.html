@@ -60,18 +60,18 @@
                         <div class="chat-header">
                             <div class="chat-status">
                                 <div class="status-dot"></div>
-                                <span>AI Assistant Online</span>
+                                <span>ai assistant online</span>
                             </div>
                         </div>
                         <div class="chat-messages">
                             <div class="message bot">
-                                <div class="message-bubble">"What's the speed limit in a built-up area?"</div>
+                                <div class="message-bubble">"what's the speed limit in a built-up area?"</div>
                             </div>
                             <div class="message user">
                                 <div class="message-bubble">"30 mph"</div>
                             </div>
                             <div class="message bot">
-                                <div class="message-bubble">"Correct! ✅ Ready for the next question?"</div>
+                                <div class="message-bubble">"correct! ✅ ready for the next question?"</div>
                             </div>
                         </div>
                         <div class="typing-indicator">
@@ -183,7 +183,7 @@
             </div>
 
             <!-- Demo Container -->
-            <div class="demo-container" id="demoContainer">
+            <div class="demo-container" id="demoContainer" style="min-height: 600px;">
                 <div class="demo-placeholder">
                     <p>select a feature above to see a live demonstration</p>
                 </div>
@@ -237,7 +237,7 @@
         </div>
     </footer>
 
-    <!-- Contact Form Modal -->
+    <!-- Contact Options Modal -->
     <div class="contact-overlay" id="contactOverlay">
         <div class="contact-modal">
             <div class="contact-header">
@@ -247,37 +247,42 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <h4>contact information</h4>
+                    <p><strong>phone:</strong> +44 7469 227953</p>
                     <p><strong>email:</strong> cleverlink.ai@outlook.com</p>
                     <p><strong>office:</strong> hampshire, united kingdom</p>
                     <p><strong>response time:</strong> within 24 hours</p>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="businessName">driving school name</label>
-                        <input type="text" id="businessName" name="businessName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contactName">your name</label>
-                        <input type="text" id="contactName" name="contactName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">email address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">phone number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="location">location</label>
-                        <input type="text" id="location" name="location" placeholder="city, county">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">message</label>
-                        <textarea id="message" name="message" rows="4" placeholder="tell us about your driving school and how we can help..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">send message</button>
-                </form>
+                
+                <div class="contact-actions" style="margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1rem;">choose your preferred method:</h4>
+                    
+                    <!-- Call Button -->
+                    <a href="tel:+447469227953" class="contact-action-btn call-btn" style="display: flex; align-items: center; gap: 12px; padding: 1rem 1.5rem; margin-bottom: 1rem; background: #000; color: #fff; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; font-weight: 500;">
+                        <span style="font-size: 1.2rem;">📞</span>
+                        <div>
+                            <div style="font-size: 1rem;">call now</div>
+                            <div style="font-size: 0.85rem; opacity: 0.8;">speak with us directly</div>
+                        </div>
+                    </a>
+                    
+                    <!-- WhatsApp Button -->
+                    <a href="https://wa.me/447469227953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20AI%20solutions%20for%20my%20driving%20school.%20Can%20you%20tell%20me%20more%3F" target="_blank" rel="noopener noreferrer" class="contact-action-btn whatsapp-btn" style="display: flex; align-items: center; gap: 12px; padding: 1rem 1.5rem; margin-bottom: 1rem; background: #25D366; color: #fff; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; font-weight: 500;">
+                        <span style="font-size: 1.2rem;">💬</span>
+                        <div>
+                            <div style="font-size: 1rem;">whatsapp us</div>
+                            <div style="font-size: 0.85rem; opacity: 0.9;">instant messaging support</div>
+                        </div>
+                    </a>
+                    
+                    <!-- Email Button -->
+                    <a href="mailto:cleverlink.ai@outlook.com?subject=AI%20Solutions%20for%20Driving%20School&body=Hi%20CleverLink%2C%0A%0AI%27m%20interested%20in%20learning%20more%20about%20your%20AI%20solutions%20for%20driving%20schools.%0A%0ADriving%20School%20Name%3A%20%0ALocation%3A%20%0A%0APlease%20get%20in%20touch%20to%20discuss%20how%20you%20can%20help.%0A%0ABest%20regards" class="contact-action-btn email-btn" style="display: flex; align-items: center; gap: 12px; padding: 1rem 1.5rem; background: #f8f9fa; color: #333; text-decoration: none; border: 2px solid #e9ecef; border-radius: 8px; transition: all 0.3s ease; font-weight: 500;">
+                        <span style="font-size: 1.2rem;">📧</span>
+                        <div>
+                            <div style="font-size: 1rem;">email us</div>
+                            <div style="font-size: 0.85rem; opacity: 0.7;">detailed inquiry support</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -294,74 +299,53 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZscWRzeWd3c3FqaWdvaGlubmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNjA0NTgsImV4cCI6MjA2NzczNjQ1OH0.RROoWnGcQzTd6rjWKp68SgMMAV7c1RS4oql0bRZ0_S0';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // Override contact form submission
+        // Add hover effects for contact buttons
         document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const submitBtn = contactForm.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'sending...';
-                    submitBtn.disabled = true;
-                    
-                    try {
-                        const formData = new FormData(contactForm);
-                        const submissionData = {
-                            name: formData.get('contactName'),
-                            email: formData.get('email'),
-                            selected_service: 'driving school ai solutions',
-                            company_name: formData.get('businessName'),
-                            problems: `Location: ${formData.get('location') || 'Not specified'}\nPhone: ${formData.get('phone') || 'Not provided'}\n\nMessage: ${formData.get('message')}`,
-                            additional_info: 'Submitted from driving schools showcase page'
-                        };
-                        
-                        // Insert into Supabase
-                        const { data, error } = await supabase
-                            .from('form_submissions')
-                            .insert([submissionData])
-                            .select();
-                        
-                        if (error) {
-                            throw new Error('Failed to submit form. Please try again.');
-                        }
-                        
-                        // Send notification emails
-                        try {
-                            await supabase.functions.invoke('send-emails', {
-                                body: { 
-                                    formData: {
-                                        name: submissionData.name,
-                                        email: submissionData.email,
-                                        selectedService: 'driving school ai solutions',
-                                        companyName: submissionData.company_name,
-                                        problems: submissionData.problems,
-                                        additionalInfo: submissionData.additional_info
-                                    }
-                                }
-                            });
-                        } catch (emailError) {
-                            console.log('Email sending failed, but form submitted successfully');
-                        }
-                        
-                        // Show success message
-                        contactForm.innerHTML = `
-                            <div style="text-align: center; padding: 2rem;">
-                                <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
-                                <h3 style="margin-bottom: 1rem;">thank you!</h3>
-                                <p style="color: var(--secondary-color);">we've received your information and will be in touch within 24 hours.</p>
-                            </div>
-                        `;
-                        
-                    } catch (error) {
-                        console.error('Form submission error:', error);
-                        alert('Sorry, there was an error submitting your form. Please try again or email us directly at cleverlink.ai@outlook.com');
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }
+            const contactButtons = document.querySelectorAll('.contact-action-btn');
+            contactButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                 });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+    
+    <!-- Vapi Voice Agent SDK -->
+    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript" 
+            onload="console.log('✅ Vapi SDK script loaded successfully')" 
+            onerror="console.error('❌ Vapi SDK script failed to load - likely localhost restriction')"></script>
+    <script>
+        // Monitor SDK loading and widget initialization
+        console.log('🔄 Starting Vapi SDK monitoring...');
+        
+        // Check immediately for any existing globals
+        console.log('Initial check - window.vapiSDK:', typeof window.vapiSDK);
+        console.log('Initial check - window.vapi:', typeof window.vapi);
+        
+        // Check once for SDK availability after a delay
+        setTimeout(() => {
+            if (window.vapiSDK || window.vapi) {
+                console.log('✅ Vapi SDK loaded and available!');
+            } else {
+                console.log('❌ Vapi SDK not available - this is normal on localhost');
+                console.log('💡 Deploy to a live domain to test Vapi functionality');
             }
+        }, 3000);
+        
+        // Also listen for when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔄 DOM ready, checking for vapi-widget elements...');
+            const widgets = document.querySelectorAll('vapi-widget');
+            console.log(`Found ${widgets.length} vapi-widget elements`);
+            
+            widgets.forEach((widget, index) => {
+                console.log(`Widget ${index} attributes:`, Array.from(widget.attributes).map(attr => `${attr.name}="${attr.value}"`));
+            });
         });
     </script>
     

@@ -1,5 +1,37 @@
 // AI Features demonstrations for CleverLink Driving School website
 
+// Clean notification system
+function showCleanNotification(message, type = 'info') {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.clean-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'clean-notification';
+    
+    // Set styles
+    const bgColor = type === 'warning' ? '#fff3cd' : type === 'error' ? '#f8d7da' : '#d1ecf1';
+    const textColor = type === 'warning' ? '#856404' : type === 'error' ? '#721c24' : '#0c5460';
+    const borderColor = type === 'warning' ? '#ffeaa7' : type === 'error' ? '#f5c6cb' : '#bee5eb';
+    const icon = type === 'warning' ? '⚠️' : type === 'error' ? '❌' : 'ℹ️';
+    
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; background: ' + bgColor + '; color: ' + textColor + '; border: 1px solid ' + borderColor + '; border-radius: 8px; padding: 16px 20px; max-width: 350px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.4;';
+    
+    notification.innerHTML = '<div style="display: flex; align-items: flex-start; gap: 8px;"><div style="font-size: 16px; margin-top: 1px;">' + icon + '</div><div style="flex: 1;">' + message + '</div><button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 0; margin-left: 8px; opacity: 0.7;">×</button></div>';
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(function() {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
 // Demo data and configurations
 const demoData = {
     chatbot: {
@@ -217,7 +249,7 @@ function loadVoiceDemo(container) {
                 <div class="voice-avatar" style="font-size: 4rem; margin-bottom: 1rem;">📞</div>
                 <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">live ai voice agent</h3>
                 <p style="margin-bottom: 2rem; color: var(--text-secondary); line-height: 1.4;">
-                    click the call button below to speak with our actual ai assistant!<br>
+                    click the button below to speak with our actual ai assistant!<br>
                     try asking about lesson prices, availability, or booking.
                 </p>
                 
@@ -227,20 +259,40 @@ function loadVoiceDemo(container) {
                             background: #4CAF50; 
                             color: white; 
                             border: none; 
-                            border-radius: 50%; 
-                            width: 80px; 
-                            height: 80px; 
-                            font-size: 2rem; 
+                            border-radius: 12px; 
+                            padding: 16px 32px; 
+                            font-size: 1.1rem; 
+                            font-weight: 600;
                             cursor: pointer; 
                             box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
                             transition: all 0.3s ease;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                        " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🎤</button>
-                        <vapi-widget 
-                            assistant-id="0edec998-9579-4fdf-8704-63a063594fe5" 
+                            gap: 8px;
+                        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">📞 click to test ai phone agent</button>
+                        <vapi-widget
                             public-key="932192f7-3aaa-4800-9bfe-d6a0512d5c8d"
+                            assistant-id="0edec998-9579-4fdf-8704-63a063594fe5"
+                            mode="voice"
+                            theme="dark"
+                            base-bg-color="#000000"
+                            accent-color="#14B8A6"
+                            cta-button-color="#000000"
+                            cta-button-text-color="#ffffff"
+                            border-radius="large"
+                            size="full"
+                            position="bottom-right"
+                            title="TALK WITH AI"
+                            start-button-text="Start"
+                            end-button-text="End Call"
+                            chat-first-message="Hey, How can I help you today?"
+                            chat-placeholder="Type your message..."
+                            voice-show-transcript="true"
+                            consent-required="true"
+                            consent-title="Terms and conditions"
+                            consent-content="By clicking "Agree," and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
+                            consent-storage-key="vapi_widget_consent"
                             style="display: none;">
                         </vapi-widget>
                     </div>
@@ -270,38 +322,116 @@ function initVoiceAgent() {
     
     if (vapiBtn) {
         vapiBtn.addEventListener('click', function() {
-            // Try to use the Vapi widget if available
-            if (vapiWidget && typeof vapiWidget.start === 'function') {
-                vapiWidget.start();
-            } else if (window.vapi) {
-                // Fallback to direct Vapi API
-                window.vapi.start('0edec998-9579-4fdf-8704-63a063594fe5');
+            console.log('🎯 AI Phone Agent button clicked!');
+            
+            // Check if widget is initialized (has shadowRoot)
+            const isWidgetInitialized = vapiWidget && vapiWidget.shadowRoot;
+            
+            if (isWidgetInitialized) {
+                console.log('Using initialized vapi-widget');
+                try {
+                    // Make widget visible and trigger it
+                    vapiWidget.style.display = 'block';
+                    vapiWidget.style.position = 'relative';
+                    vapiWidget.style.zIndex = '10000';
+                    
+                    console.log('Looking for start button in shadowRoot...');
+                    
+                    // Try multiple ways to trigger the widget
+                    if (typeof vapiWidget.startCall === 'function') {
+                        console.log('Using startCall method');
+                        vapiWidget.startCall();
+                        showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                    } else if (typeof vapiWidget.start === 'function') {
+                        console.log('Using start method');
+                        vapiWidget.start();
+                        showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                    } else if (vapiWidget.shadowRoot) {
+                        // Look for the actual Vapi start button in the shadow DOM
+                        const shadowButtons = vapiWidget.shadowRoot.querySelectorAll('button');
+                        console.log('Found shadow buttons:', shadowButtons.length);
+                        
+                        // Try to find the start button (usually contains "Start" text)
+                        let startButton = null;
+                        shadowButtons.forEach(btn => {
+                            console.log('Button text:', btn.textContent);
+                            if (btn.textContent.includes('Start') || btn.textContent.includes('Call') || btn.classList.contains('start')) {
+                                startButton = btn;
+                            }
+                        });
+                        
+                        if (startButton) {
+                            console.log('Found start button, clicking it');
+                            startButton.click();
+                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                        } else if (shadowButtons.length > 0) {
+                            console.log('No start button found, clicking first button');
+                            shadowButtons[0].click();
+                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                        } else {
+                            console.log('No buttons found in shadow DOM, trying click event');
+                            const clickEvent = new MouseEvent('click', {
+                                bubbles: true,
+                                cancelable: true,
+                                view: window
+                            });
+                            vapiWidget.dispatchEvent(clickEvent);
+                            showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                        }
+                    } else {
+                        console.log('No shadow DOM methods available, trying generic click');
+                        const clickEvent = new MouseEvent('click', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window
+                        });
+                        vapiWidget.dispatchEvent(clickEvent);
+                        showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                    }
+                } catch (error) {
+                    console.error('Widget trigger error:', error);
+                    showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                }
+            } else if (vapiWidget) {
+                console.log('📍 Widget exists but not initialized (normal on localhost)');
+                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly<br><small>vapi widget requires a live domain to function</small>', 'info');
+            } else if (window.vapiSDK && window.vapiSDK.run) {
+                console.log('Using vapiSDK.run method');
+                try {
+                    window.vapiSDK.run({
+                        apiKey: '932192f7-3aaa-4800-9bfe-d6a0512d5c8d',
+                        assistant: '0edec998-9579-4fdf-8704-63a063594fe5'
+                    });
+                    showCleanNotification('🎙️ connecting to ai phone agent...', 'info');
+                } catch (error) {
+                    console.error('Vapi SDK error:', error);
+                    showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                }
             } else {
-                // Ultimate fallback - show instructions
-                vapiBtn.innerHTML = '📞';
-                vapiBtn.style.background = '#ff6b35';
-                setTimeout(() => {
-                    alert('AI Voice Agent is being initialized. Please refresh the page and try again in a moment.');
-                    vapiBtn.innerHTML = '🎤';
-                    vapiBtn.style.background = '#4CAF50';
-                }, 100);
+                console.log('📍 No Vapi SDK available (normal on localhost)');
+                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly<br><small>deploy to a live domain to test the web widget</small>', 'info');
             }
         });
     }
     
-    // Check if Vapi widget loaded and hide fallback button
+    // Check if Vapi widget becomes initialized (single check after delay)
     setTimeout(() => {
         const vapiWidgets = document.querySelectorAll('vapi-widget');
+        
         if (vapiWidgets.length > 0) {
-            vapiWidgets.forEach(widget => {
-                if (widget.shadowRoot || widget.children.length > 0) {
-                    // Widget has loaded, show it and hide fallback
-                    widget.style.display = 'block';
-                    if (vapiBtn) vapiBtn.style.display = 'none';
-                }
-            });
+            const widget = vapiWidgets[0];
+            if (widget.shadowRoot) {
+                console.log('✅ Vapi widget initialized successfully!');
+                widget.style.display = 'block';
+                
+                const shadowButtons = widget.shadowRoot.querySelectorAll('button');
+                console.log(`Found ${shadowButtons.length} buttons in shadow DOM`);
+            } else {
+                console.log('⚠️ Vapi widget exists but not initialized');
+                console.log('💡 This is expected on localhost - deploy to test Vapi');
+            }
         }
-    }, 2000);
+    }, 5000);
 }
 
 // Voice interaction function removed - now using real Vapi widget
@@ -467,7 +597,7 @@ function initBookingInteraction() {
     }
     
     bookLessonBtn.addEventListener('click', function() {
-        window.CleverLinkDS.showNotification('Lesson booked successfully! Confirmation SMS sent.', 'success');
+        showCleanNotification('Lesson booked successfully! Confirmation SMS sent.', 'info');
         this.disabled = true;
     });
 }
@@ -635,7 +765,7 @@ function initDocumentsInteraction() {
     
     if (generateNew) {
         generateNew.addEventListener('click', function() {
-            window.CleverLinkDS.showNotification('AI document generation would open in full editor', 'info');
+            showCleanNotification('AI document generation would open in full editor', 'info');
         });
     }
 }
@@ -773,6 +903,8 @@ function loadAssistantDemo(container) {
     
     container.innerHTML = assistantHTML;
 }
+
+
 
 // Export functions for global access
 window.loadChatbotDemo = loadChatbotDemo;

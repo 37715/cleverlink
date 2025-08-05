@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Hero from './components/Hero';
 import Dashboard from './components/Dashboard';
 import Features from './components/Features';
@@ -10,7 +10,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import CookiePolicy from './components/CookiePolicy';
 
-import { SplashCursor } from '@/components/ui/splash-cursor';
+// import { SplashCursor } from '@/components/ui/splash-cursor';
 
 function App() {
   // Simple routing based on pathname
@@ -41,6 +41,11 @@ function App() {
     return <CookiePolicy />;
   }
 
+  // If on contact page, show contact page
+  if (currentPath === '/contact') {
+    return <Contact />;
+  }
+
 
 
   // Default landing page
@@ -50,7 +55,7 @@ function App() {
       <div className="fixed inset-0 bg-white z-0"></div>
       
       {/* Splash cursor positioned behind all content but above background */}
-      <SplashCursor />
+      {/* <SplashCursor /> */}
       
       {/* Main content with proper semantic structure */}
       <main className="relative z-10">

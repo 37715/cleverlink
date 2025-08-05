@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, Send, User, Mail, Building, Target, FileText, Bot, ArrowLeft, CheckCircle, Home } from 'lucide-react';
+import { ChevronDown, Send, User, Mail, Building, Target, FileText, Bot, ArrowLeft, CheckCircle, Home, Phone, MessageCircle } from 'lucide-react';
 import { ScrollReveal, FadeIn } from '@/components/ui/scroll-reveal';
 import { supabase, TABLES, FormSubmission } from '@/lib/supabase';
 
@@ -177,193 +177,77 @@ const ContactForm = () => {
             </button>
           </div>
           
-          <div className="text-center">
-            <FadeIn>
-              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-ultra-light mb-2 text-black tracking-wider">
-                cleverlink
-              </h1>
-              <div className="w-16 h-px bg-black mx-auto mb-6"></div>
-              <p className="text-lg sm:text-xl text-gray-600 font-ultra-light">
-                initialize your ai transformation
-              </p>
-            </FadeIn>
-          </div>
-        </div>
-      </div>
-
-      {/* Form Section */}
-      <div className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-2xl mx-auto">
-          <ScrollReveal className="mb-8 sm:mb-12 text-center">
-            <h2 className="font-heading text-2xl sm:text-3xl font-ultra-light mb-4 text-black">
-              get started with ai solutions
-            </h2>
-            <p className="text-gray-600 font-ultra-light text-sm sm:text-base">
-              tell us about your business needs and we'll craft the perfect ai solution for you
+          <div className="text-center mb-12">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-ultra-light mb-4 text-black">
+              get in contact
+            </h1>
+            <div className="w-16 h-px bg-black mx-auto mb-6"></div>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto font-ultra-light">
+              ready to transform your business with ai? let's discuss your unique needs
             </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.2}>
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              {/* Error Message */}
-              {submitError && (
-                <div className="p-4 bg-red-50 border border-red-200 text-red-600 font-ultra-light text-sm">
-                  {submitError}
+          </div>
+          
+          {/* Contact Options */}
+          <div className="max-w-2xl mx-auto">
+            <div className="grid gap-4 sm:gap-6">
+              {/* Call Button */}
+              <a 
+                href="tel:+447469227953"
+                className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-black hover:bg-gray-50 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center group-hover:bg-gray-800 transition-colors">
+                  <Phone className="w-6 h-6" strokeWidth={1.5} />
                 </div>
-              )}
-
-              {/* Name Field */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <User className="w-4 h-4" strokeWidth={1} />
-                  name
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  required
-                  className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white"
-                  placeholder="your full name"
-                />
-              </div>
-
-              {/* Email Field */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <Mail className="w-4 h-4" strokeWidth={1} />
-                  email
-                </label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  required
-                  className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white"
-                  placeholder="your email address"
-                />
-              </div>
-
-              {/* Service Selection Dropdown */}
-              <div className="group relative">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <Bot className="w-4 h-4" strokeWidth={1} />
-                  selected service
-                </label>
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    type="button"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white flex items-center justify-between text-left"
-                  >
-                    <span className={selectedServiceObj ? 'text-black' : 'text-gray-500'}>
-                      {selectedServiceObj ? selectedServiceObj.label : 'choose your ai service'}
-                    </span>
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} strokeWidth={1} />
-                  </button>
-                  
-                  {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 border-t-0 z-50 max-h-60 overflow-y-auto">
-                      {services.map((service) => {
-                        const IconComponent = service.icon;
-                        return (
-                          <button
-                            key={service.value}
-                            type="button"
-                            onClick={() => handleServiceSelect(service)}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 flex items-center gap-3 font-ultra-light text-sm sm:text-base border-b border-gray-100 last:border-b-0"
-                          >
-                            <IconComponent className="w-4 h-4 text-gray-600" strokeWidth={1} />
-                            <span className="text-black">{service.label}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
+                <div className="flex-1">
+                  <h3 className="font-heading text-lg font-light mb-1 text-black">call now</h3>
+                  <p className="text-gray-600 font-ultra-light text-sm mb-1">speak with us directly</p>
+                  <p className="text-black font-light">+44 7469 227953</p>
                 </div>
-              </div>
-
-              {/* Company Name */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <Building className="w-4 h-4" strokeWidth={1} />
-                  company name
-                </label>
-                <input
-                  type="text"
-                  value={formData.companyName}
-                  onChange={(e) => handleInputChange('companyName', e.target.value)}
-                  className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white"
-                  placeholder="your company or organization"
-                />
-              </div>
-
-              {/* Problems to Solve */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <Target className="w-4 h-4" strokeWidth={1} />
-                  what problems are you looking to solve?
-                </label>
-                <textarea
-                  value={formData.problems}
-                  onChange={(e) => handleInputChange('problems', e.target.value)}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white resize-none"
-                  placeholder="describe the challenges you're facing and how ai could help transform your business..."
-                />
-              </div>
-
-              {/* Additional Information */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-light text-black mb-3">
-                  <FileText className="w-4 h-4" strokeWidth={1} />
-                  additional information
-                </label>
-                <textarea
-                  value={formData.additionalInfo}
-                  onChange={(e) => handleInputChange('additionalInfo', e.target.value)}
-                  rows={3}
-                  className="w-full px-4 py-3 sm:py-4 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300 font-ultra-light text-sm sm:text-base bg-white resize-none"
-                  placeholder="any additional details, timeline, budget considerations, or specific requirements..."
-                />
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-4 sm:pt-6">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-4 sm:py-5 bg-black text-white font-ultra-light text-sm sm:text-base tracking-wide hover:bg-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      processing...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" strokeWidth={1} />
-                      initialize ai transformation
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          </ScrollReveal>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="py-8 px-4 sm:px-6 border-t border-gray-100 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs sm:text-sm text-gray-500 font-ultra-light">
-            cleverlink © 2024 • minimal ai solutions for modern businesses
-          </p>
+              </a>
+              
+              {/* WhatsApp Button */}
+              <a 
+                href="https://wa.me/447469227953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services.%20Can%20you%20tell%20me%20more%3F"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center group-hover:bg-green-700 transition-colors">
+                  <MessageCircle className="w-6 h-6" strokeWidth={1.5} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-heading text-lg font-light mb-1 text-black">whatsapp us</h3>
+                  <p className="text-gray-600 font-ultra-light text-sm mb-1">instant messaging support</p>
+                  <p className="text-green-600 font-light">start conversation</p>
+                </div>
+              </a>
+              
+              {/* Email Button */}
+              <a 
+                href="mailto:cleverlink.ai@outlook.com?subject=AI%20Services%20Inquiry&body=Hi%20CleverLink%2C%0A%0AI%27m%20interested%20in%20learning%20more%20about%20your%20AI%20services.%0A%0ABest%20regards"
+                className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center group-hover:bg-blue-700 transition-colors">
+                  <Mail className="w-6 h-6" strokeWidth={1.5} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-heading text-lg font-light mb-1 text-black">email us</h3>
+                  <p className="text-gray-600 font-ultra-light text-sm mb-1">get a response within 24 hours</p>
+                  <p className="text-blue-600 font-light">cleverlink.ai@outlook.com</p>
+                </div>
+              </a>
+            </div>
+            
+            <div className="text-center mt-8 sm:mt-12">
+              <p className="text-gray-500 font-ultra-light text-sm">
+                <strong>office:</strong> hampshire, united kingdom
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ContactForm; 
+export default ContactForm;

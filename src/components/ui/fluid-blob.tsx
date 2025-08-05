@@ -170,4 +170,4 @@ export const LavaLamp = () => {
       </Canvas>
     </div>
   );
-} 
+}; 
