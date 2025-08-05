@@ -1,6 +1,6 @@
 // AI Features demonstrations for CleverLink Driving School website
 
-// Clean notification system
+// Clean notification system - make it globally accessible
 function showCleanNotification(message, type = 'info') {
     // Remove any existing notifications
     const existingNotification = document.querySelector('.clean-notification');
@@ -296,7 +296,8 @@ function initVoiceAgent() {
     const vapiBtn = document.getElementById('vapiCallBtn');
     
     if (vapiBtn) {
-        vapiBtn.addEventListener('click', function() {
+        // Store the original click handler globally
+        window.originalClickHandler = function() {
             console.log('🎯 AI Phone Agent button clicked!');
             
             // Try to start Vapi call using our manual function
@@ -354,7 +355,10 @@ function initVoiceAgent() {
                 console.log('❌ No Vapi SDK available yet');
                 showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly', 'info');
             }
-        });
+        };
+        
+        // Add the original click handler
+        vapiBtn.addEventListener('click', window.originalClickHandler);
     }
     
     // Check when SDK becomes available (no more hiding the button)
@@ -849,3 +853,4 @@ window.loadDocumentsDemo = loadDocumentsDemo;
 window.loadLessonsDemo = loadLessonsDemo;
 window.loadAssistantDemo = loadAssistantDemo;
 window.initVoiceAgent = initVoiceAgent;
+window.showCleanNotification = showCleanNotification;

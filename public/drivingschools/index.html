@@ -378,7 +378,7 @@
                         <div>
                             <div style="font-size: 1rem;">call now</div>
                             <div style="font-size: 0.85rem; opacity: 0.8;">speak with us directly</div>
-                        </div>
+                    </div>
                     </a>
                     
                     <!-- WhatsApp Button -->
@@ -387,7 +387,7 @@
                         <div>
                             <div style="font-size: 1rem;">whatsapp us</div>
                             <div style="font-size: 0.85rem; opacity: 0.9;">instant messaging support</div>
-                        </div>
+                    </div>
                     </a>
                     
                     <!-- Email Button -->
@@ -396,9 +396,9 @@
                         <div>
                             <div style="font-size: 1rem;">email us</div>
                             <div style="font-size: 0.85rem; opacity: 0.7;">detailed inquiry support</div>
-                        </div>
+                    </div>
                     </a>
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -431,36 +431,13 @@
         });
     </script>
     
-    <!-- Vapi Web SDK - Hidden Widget Approach -->
+    <!-- Vapi SDK - Using Working Widget Method -->
     <script>
         var vapiInstance = null;
-        const assistant = "0edec998-9579-4fdf-8704-63a063594fe5"; // Your assistant ID
-        const apiKey = "932192f7-3aaa-4800-9bfe-d6a0512d5c8d"; // Your public key
-        const buttonConfig = {
-            position: "bottom-right",
-            offset: "40px",
-            width: "0px", // Invisible
-            height: "0px", // Invisible
-            idle: {
-                color: `rgba(0,0,0,0)`, // Transparent
-                type: "pill",
-                title: "",
-                subtitle: "",
-            },
-            loading: {
-                color: `rgba(0,0,0,0)`, // Transparent
-                type: "pill",
-                title: "",
-                subtitle: "",
-            },
-            active: {
-                color: `rgba(0,0,0,0)`, // Transparent
-                type: "pill",
-                title: "",
-                subtitle: "",
-            },
-        };
+        const assistant = "0edec998-9579-4fdf-8704-63a063594fe5";
+        const apiKey = "932192f7-3aaa-4800-9bfe-d6a0512d5c8d";
         
+        // Use the widget script that we KNOW works, but configure it properly
         (function (d, t) {
             var g = document.createElement(t),
                 s = d.getElementsByTagName(t)[0];
@@ -470,20 +447,41 @@
             s.parentNode.insertBefore(g, s);
             
             g.onload = function () {
-                console.log('✅ Vapi SDK loaded successfully');
-                // Create the instance automatically (like the working version)
-                vapiInstance = window.vapiSDK.run({
-                    apiKey: apiKey, // mandatory
-                    assistant: assistant, // mandatory
-                    config: buttonConfig, // optional
-                });
-                window.vapiInstance = vapiInstance; // Make it globally accessible
-                console.log('✅ Vapi instance created automatically:', vapiInstance);
+                console.log('✅ Vapi widget SDK loaded successfully');
                 
-                // Add event listeners to the instance
+                // Create instance but DON'T show widget (position: none)
+                vapiInstance = window.vapiSDK.run({
+                    apiKey: apiKey,
+                    assistant: assistant,
+                    config: {
+                        position: "none" // This hides the widget
+                    }
+                });
+                
+                window.vapiInstance = vapiInstance;
+                window.assistant = assistant;
+                
+                console.log('✅ Vapi instance created (hidden widget):', vapiInstance);
+                
+                // Add event listeners
                 if (vapiInstance && typeof vapiInstance.on === 'function') {
                     vapiInstance.on('call-start', function() {
                         console.log('📞 Call started successfully');
+                        // Update button to show call is active
+                        const vapiBtn = document.getElementById('vapiCallBtn');
+                        if (vapiBtn) {
+                            vapiBtn.style.background = '#ff4444';
+                            vapiBtn.textContent = '📞 click to end call';
+                            // Remove all existing event listeners and add new one
+                            vapiBtn.onclick = null;
+                            vapiBtn.removeEventListener('click', window.originalClickHandler);
+                            vapiBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('🛑 Ending call via stop()');
+                                vapiInstance.stop();
+                            });
+                        }
                     });
                     
                     vapiInstance.on('call-end', function() {
@@ -505,38 +503,61 @@
             };
             
             g.onerror = function() {
-                console.error('❌ Failed to load Vapi SDK');
+                console.error('❌ Failed to load Vapi widget SDK');
             };
         })(document, "script");
-        
-        // Function to trigger the existing Vapi instance
-        window.startVapiCall = function() {
-            console.log('🚀 Triggering existing Vapi instance');
-            console.log('Available instance:', window.vapiInstance);
+    </script>
+    <script>
+        // Function to start Vapi call using WIDGET method - v2.0 FIXED
+        window.startVapiCall = async function() {
+            console.log('🚀 [v2.0] Starting Vapi call using widget SDK method with microphone check');
             
-            if (window.vapiInstance) {
-                // The instance already exists, just trigger it
-                console.log('✅ Using existing Vapi instance');
+            // Check microphone permissions first
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                console.log('✅ Microphone permission granted');
+                stream.getTracks().forEach(track => track.stop()); // Stop the test stream
+            } catch (permissionError) {
+                console.error('❌ Microphone permission denied:', permissionError);
+                if (window.showCleanNotification) {
+                    window.showCleanNotification('🎙️ Please allow microphone access and try again', 'warning');
+                }
+                return false;
+            }
+            
+            if (window.vapiInstance && window.assistant) {
+                console.log('✅ Using widget Vapi instance');
+                console.log('🔧 Assistant ID:', window.assistant);
+                console.log('🔧 API Key:', apiKey.substring(0, 8) + '...');
                 
-                // Try to start the call
-                if (typeof window.vapiInstance.start === 'function') {
-                    console.log('📞 Starting call via instance.start()');
-                    window.vapiInstance.start();
-                    return true;
-                } else {
-                    console.log('📞 No start method, trying to click the invisible widget');
-                    // Try to find and click the invisible widget
-                    const invisibleWidget = document.querySelector('[data-vapi-widget]');
-                    if (invisibleWidget) {
-                        invisibleWidget.click();
+                try {
+                    // Use the widget method: start with assistant ID
+                    if (typeof window.vapiInstance.start === 'function') {
+                        console.log('📞 Attempting to start call...');
+                        await window.vapiInstance.start(window.assistant);
+                        console.log('📞 Call start request sent');
                         return true;
                     } else {
-                        console.error('❌ No way to trigger the call');
+                        console.error('❌ vapiInstance.start is not a function');
+                        console.log('Available methods:', Object.getOwnPropertyNames(window.vapiInstance));
                         return false;
                     }
+                } catch (error) {
+                    console.error('❌ Error starting call:', error);
+                    if (error.message && error.message.includes('Meeting has ended')) {
+                        console.log('💡 This might be an assistant configuration issue');
+                        if (window.showCleanNotification) {
+                            window.showCleanNotification('📞 Call setup issue. Please try again or call +44 7469 227953 directly', 'warning');
+                        }
+                    }
+                    return false;
                 }
             } else {
-                console.error('❌ No Vapi instance available');
+                console.error('❌ No Vapi widget instance available. SDK loaded?', {
+                    vapiInstance: !!window.vapiInstance,
+                    assistant: !!window.assistant,
+                    vapiSDK: !!window.vapiSDK
+                });
                 return false;
             }
         };
@@ -545,12 +566,20 @@
         window.resetVapiButton = function() {
             const vapiBtn = document.getElementById('vapiCallBtn');
             if (vapiBtn) {
+                console.log('🔄 Resetting button to original state');
                 vapiBtn.style.background = '#4CAF50';
                 vapiBtn.textContent = '📞 click to test ai phone agent';
                 vapiBtn.disabled = false;
-                // Reset the onclick handler to original function
+                
+                // Remove all click handlers and restore original
                 vapiBtn.onclick = null;
-                // Re-initialize will be handled by the existing event listener
+                vapiBtn.removeEventListener('click', arguments.callee); // Remove any anonymous handlers
+                
+                // Re-add the original click handler if it exists
+                if (window.originalClickHandler) {
+                    vapiBtn.addEventListener('click', window.originalClickHandler);
+                    console.log('✅ Original click handler restored');
+                }
             }
         };
     </script>
