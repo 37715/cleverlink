@@ -431,14 +431,36 @@
         });
     </script>
     
-    <!-- Vapi Web SDK - Headless Integration -->
+    <!-- Vapi Web SDK - Hidden Widget Approach -->
     <script>
-        window.vapiInstance = null;
-        window.vapiSDK = null;
+        var vapiInstance = null;
         const assistant = "0edec998-9579-4fdf-8704-63a063594fe5"; // Your assistant ID
         const apiKey = "932192f7-3aaa-4800-9bfe-d6a0512d5c8d"; // Your public key
+        const buttonConfig = {
+            position: "bottom-right",
+            offset: "40px",
+            width: "0px", // Invisible
+            height: "0px", // Invisible
+            idle: {
+                color: `rgba(0,0,0,0)`, // Transparent
+                type: "pill",
+                title: "",
+                subtitle: "",
+            },
+            loading: {
+                color: `rgba(0,0,0,0)`, // Transparent
+                type: "pill",
+                title: "",
+                subtitle: "",
+            },
+            active: {
+                color: `rgba(0,0,0,0)`, // Transparent
+                type: "pill",
+                title: "",
+                subtitle: "",
+            },
+        };
         
-        // Load Vapi SDK without creating automatic widget
         (function (d, t) {
             var g = document.createElement(t),
                 s = d.getElementsByTagName(t)[0];
@@ -449,8 +471,37 @@
             
             g.onload = function () {
                 console.log('✅ Vapi SDK loaded successfully');
-                window.vapiSDK = window.vapiSDK; // Store SDK reference
-                console.log('✅ Vapi SDK is ready for manual triggering');
+                // Create the instance automatically (like the working version)
+                vapiInstance = window.vapiSDK.run({
+                    apiKey: apiKey, // mandatory
+                    assistant: assistant, // mandatory
+                    config: buttonConfig, // optional
+                });
+                window.vapiInstance = vapiInstance; // Make it globally accessible
+                console.log('✅ Vapi instance created automatically:', vapiInstance);
+                
+                // Add event listeners to the instance
+                if (vapiInstance && typeof vapiInstance.on === 'function') {
+                    vapiInstance.on('call-start', function() {
+                        console.log('📞 Call started successfully');
+                    });
+                    
+                    vapiInstance.on('call-end', function() {
+                        console.log('📞 Call ended, resetting button');
+                        if (window.resetVapiButton) {
+                            window.resetVapiButton();
+                        }
+                    });
+                    
+                    vapiInstance.on('error', function(error) {
+                        console.error('📞 Call error:', error);
+                        if (window.resetVapiButton) {
+                            window.resetVapiButton();
+                        }
+                    });
+                    
+                    console.log('✅ Event listeners added to Vapi instance');
+                }
             };
             
             g.onerror = function() {
@@ -458,68 +509,34 @@
             };
         })(document, "script");
         
-        // Function to start Vapi call manually (using exact same logic as working widget)
+        // Function to trigger the existing Vapi instance
         window.startVapiCall = function() {
-            if (window.vapiSDK && window.vapiSDK.run) {
-                console.log('🚀 Starting Vapi call manually');
+            console.log('🚀 Triggering existing Vapi instance');
+            console.log('Available instance:', window.vapiInstance);
+            
+            if (window.vapiInstance) {
+                // The instance already exists, just trigger it
+                console.log('✅ Using existing Vapi instance');
                 
-                // Use the EXACT same configuration as the working widget
-                window.vapiInstance = window.vapiSDK.run({
-                    apiKey: apiKey,
-                    assistant: assistant,
-                    config: {
-                        position: "bottom-right", // Keep original position but make invisible
-                        offset: "40px",
-                        width: "0px", // Make invisible 
-                        height: "0px", // Make invisible
-                        idle: {
-                            color: `rgba(0,0,0,0)`, // Transparent
-                            type: "pill",
-                            title: "",
-                            subtitle: "",
-                        },
-                        loading: {
-                            color: `rgba(0,0,0,0)`, // Transparent
-                            type: "pill", 
-                            title: "",
-                            subtitle: "",
-                        },
-                        active: {
-                            color: `rgba(0,0,0,0)`, // Transparent
-                            type: "pill",
-                            title: "",
-                            subtitle: "",
-                        },
-                    }
-                });
-                
-                // Listen for call events
-                if (window.vapiInstance) {
-                    if (window.vapiInstance.on) {
-                        window.vapiInstance.on('call-start', function() {
-                            console.log('📞 Call started successfully');
-                        });
-                        
-                        window.vapiInstance.on('call-end', function() {
-                            console.log('📞 Call ended, resetting button');
-                            window.resetVapiButton();
-                        });
-                        
-                        window.vapiInstance.on('error', function(error) {
-                            console.error('📞 Call error:', error);
-                            window.resetVapiButton();
-                        });
-                    }
-                    
-                    // Start the call immediately
-                    if (typeof window.vapiInstance.start === 'function') {
-                        window.vapiInstance.start();
+                // Try to start the call
+                if (typeof window.vapiInstance.start === 'function') {
+                    console.log('📞 Starting call via instance.start()');
+                    window.vapiInstance.start();
+                    return true;
+                } else {
+                    console.log('📞 No start method, trying to click the invisible widget');
+                    // Try to find and click the invisible widget
+                    const invisibleWidget = document.querySelector('[data-vapi-widget]');
+                    if (invisibleWidget) {
+                        invisibleWidget.click();
+                        return true;
+                    } else {
+                        console.error('❌ No way to trigger the call');
+                        return false;
                     }
                 }
-                
-                return true;
             } else {
-                console.error('❌ Vapi SDK not available');
+                console.error('❌ No Vapi instance available');
                 return false;
             }
         };
