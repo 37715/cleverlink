@@ -192,7 +192,7 @@ const ContactForm = () => {
             <div className="grid gap-4 sm:gap-6">
               {/* Call Button */}
               <a 
-                href="tel:+447469227953"
+                href="tel:+447469237953"
                 className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-black hover:bg-gray-50 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center group-hover:bg-gray-800 transition-colors">
@@ -201,13 +201,13 @@ const ContactForm = () => {
                 <div className="flex-1">
                   <h3 className="font-heading text-lg font-light mb-1 text-black">call now</h3>
                   <p className="text-gray-600 font-ultra-light text-sm mb-1">speak with us directly</p>
-                  <p className="text-black font-light">+44 7469 227953</p>
+                  <p className="text-black font-light">+44 7469237953</p>
                 </div>
               </a>
               
               {/* WhatsApp Button */}
               <a 
-                href="https://wa.me/447469227953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services.%20Can%20you%20tell%20me%20more%3F"
+                href="https://wa.me/447469237953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services.%20Can%20you%20tell%20me%20more%3F"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-6 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all duration-300 group"

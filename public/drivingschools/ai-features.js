@@ -319,11 +319,11 @@ function initVoiceAgent() {
                             }
                         };
                     } else {
-                        showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                        showCleanNotification('📞 please call +44 7469237953 to speak with our ai assistant directly', 'info');
                     }
                 } catch (error) {
                     console.error('Manual Vapi start error:', error);
-                    showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                    showCleanNotification('📞 please call +44 7469237953 to speak with our ai assistant directly', 'info');
                 }
             } else if (window.vapiSDK && typeof window.vapiSDK.run === 'function') {
                 console.log('✅ Using direct vapiSDK.run method');
@@ -349,11 +349,11 @@ function initVoiceAgent() {
                     };
                 } catch (error) {
                     console.error('Vapi SDK error:', error);
-                    showCleanNotification('📞 please call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                    showCleanNotification('📞 please call +44 7469237953 to speak with our ai assistant directly', 'info');
                 }
             } else {
                 console.log('❌ No Vapi SDK available yet');
-                showCleanNotification('📞 call +44 7469 227953 to speak with our ai assistant directly', 'info');
+                showCleanNotification('📞 call +44 7469237953 to speak with our ai assistant directly', 'info');
             }
         };
         

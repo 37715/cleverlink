@@ -29,10 +29,10 @@ const Contact = () => {
               speak with us directly
             </p>
             <a 
-              href="tel:+447469227953" 
+              href="tel:+447469237953" 
               className="text-black hover:text-gray-700 transition-colors duration-300 font-ultra-light text-sm sm:text-base"
             >
-              +44 7469 227953
+              +44 7469237953
             </a>
           </ScrollReveal>
 
@@ -67,7 +67,7 @@ const Contact = () => {
               instant messaging support
             </p>
             <a 
-              href="https://wa.me/447469227953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services" 
+              href="https://wa.me/447469237953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services" 
               target="_blank"
               rel="noopener noreferrer"
               className="text-black hover:text-gray-700 transition-colors duration-300 font-ultra-light text-sm sm:text-base"
@@ -81,14 +81,14 @@ const Contact = () => {
         <ScrollReveal delay={0.4} className="text-center">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
             <a 
-              href="tel:+447469227953"
+              href="tel:+447469237953"
               className="inline-flex items-center px-6 py-3 bg-black text-white font-ultra-light text-sm sm:text-base rounded-lg hover:bg-gray-800 transition-colors duration-300 gap-2 min-w-[200px] justify-center"
             >
               <Phone className="w-4 h-4" strokeWidth={1} />
               call now
             </a>
             <a 
-              href="https://wa.me/447469227953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services"
+              href="https://wa.me/447469237953?text=Hi%20CleverLink%2C%20I%27m%20interested%20in%20your%20AI%20services"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-ultra-light text-sm sm:text-base rounded-lg hover:bg-green-700 transition-colors duration-300 gap-2 min-w-[200px] justify-center"
